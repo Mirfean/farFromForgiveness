@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b3701tbl7h5pl"]
+
+[ext_resource type="Script" uid="uid://m84nhdsn7bnv" path="res://Code/movement_info.gd" id="1"]
+
+[node name="MovementInfo" type="Control" unique_id=801417329 node_paths=PackedStringArray("remaining_label", "moves_left")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 64.0
+script = ExtResource("1")
+remaining_label = NodePath("PanelContainer/HBoxContainer/RemainingMovesLabel")
+moves_left = NodePath("PanelContainer/HBoxContainer/RemainingMovesValueLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1175423349]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=2141837171]
+layout_mode = 2
+
+[node name="RemainingMovesLabel" type="Label" parent="PanelContainer/HBoxContainer" unique_id=907732352]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Remaining moves"
+
+[node name="RemainingMovesValueLabel" type="Label" parent="PanelContainer/HBoxContainer" unique_id=567053326]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "13"

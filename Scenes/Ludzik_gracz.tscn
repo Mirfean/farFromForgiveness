@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://rb0o60qsgmtg" path="res://Sprites/Ludki.png" id="1_5g057"]
 [ext_resource type="Script" uid="uid://dhlhm0vp68fwn" path="res://Code/player.gd" id="1_dpjj4"]
+[ext_resource type="Script" uid="uid://51rlyg3krpis" path="res://Code/character_stats.gd" id="2_b46ru"]
+[ext_resource type="Resource" uid="uid://vjnqeo1x5q4u" path="res://Resources/Characters Stats/demo_player.tres" id="2_dm3j1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dpjj4"]
 atlas = ExtResource("1_5g057")
@@ -61,13 +63,19 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g057"]
 size = Vector2(16, 16)
 
-[node name="Node2D" type="CharacterBody2D" unique_id=593328418]
+[node name="Ludzik_gracza" type="CharacterBody2D" unique_id=593328418 node_paths=PackedStringArray("raycast", "stats")]
 script = ExtResource("1_dpjj4")
+raycast = NodePath("RayCast2D")
+stats = NodePath("Stats")
+r_stats = ExtResource("2_dm3j1")
+
+[node name="Stats" type="Node2D" parent="." unique_id=11161886]
+script = ExtResource("2_b46ru")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1771450717]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_hg7l8")
-frame_progress = 0.9194974
+frame_progress = 0.68299973
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=61900238]
@@ -75,5 +83,6 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_5g057")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=572144603]
+self_modulate = Color(0.7933751, 0.09721158, 0.5017716, 1)
 position = Vector2(8, 8)
 target_position = Vector2(16, 0)

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cu6em24p8e1qe"]
+
+[ext_resource type="Texture2D" uid="uid://rb0o60qsgmtg" path="res://Sprites/Ludki.png" id="1_r5vir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5vir"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al225"]
+atlas = ExtResource("1_r5vir")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hg7l8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al225")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Oponent" type="CharacterBody2D" unique_id=191306439]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2007273679]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_r5vir")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=858933411]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_hg7l8")
+centered = false
