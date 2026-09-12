@@ -24,6 +24,12 @@ GLOBAL="*uid://dtmvli188rur"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+Player_char="Player's minion"
+Enemy_char=""
+Player="Main character"
+
 [input]
 
 move_right={

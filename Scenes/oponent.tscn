@@ -20,7 +20,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Oponent" type="CharacterBody2D" unique_id=191306439]
+[node name="Oponent" type="CharacterBody2D" unique_id=191306439 groups=["Enemy_char"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2007273679]
 position = Vector2(8, 8)

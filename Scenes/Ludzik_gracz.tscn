@@ -69,7 +69,7 @@ raycast = NodePath("RayCast2D")
 stats = NodePath("Stats")
 r_stats = ExtResource("2_dm3j1")
 
-[node name="Stats" type="Node2D" parent="." unique_id=11161886]
+[node name="Stats" type="Node2D" parent="." unique_id=11161886 groups=["Player", "Player_char"]]
 script = ExtResource("2_b46ru")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1771450717]
