@@ -1,0 +1,16 @@
+[gd_resource type="TileSet" format=3 uid="uid://c0hf3wykcfx8b"]
+
+[ext_resource type="Texture2D" uid="uid://rb0o60qsgmtg" path="res://Sprites/Ludki.png" id="1_hf35d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_01xaa"]
+texture = ExtResource("1_hf35d")
+1:0/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[resource]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_01xaa")
