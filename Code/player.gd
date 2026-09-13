@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Ludzik_gracza
 
 const inputs = {
 	"move_right": Vector2.RIGHT,
@@ -7,6 +8,7 @@ const inputs = {
 	"move_up": Vector2.UP
 }
 
+@export var active: bool
 @export var raycast: RayCast2D
 @export var stats: character_stats
 @export var r_stats: r_character_stats
@@ -15,9 +17,10 @@ func _ready() -> void:
 	stats.load_resource(r_stats)
 
 func _unhandled_input(event: InputEvent) -> void:
-	for action in inputs.keys():
-		if event.is_action_pressed(action):
-			move(action)
+	if active:
+		for action in inputs.keys():
+			if event.is_action_pressed(action):
+				move(action)
 			
 func move(action):
 	var destination = inputs[action] * GLOBAL.grid_size
