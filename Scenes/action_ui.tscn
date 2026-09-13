@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cckiemoefh4fw"]
+
+[ext_resource type="Texture2D" uid="uid://cm5t6cpddou63" path="res://Sprites/UI/attack_button.png" id="1_w7onk"]
+[ext_resource type="Texture2D" uid="uid://i1lif70fpxw0" path="res://Sprites/UI/use_item_button.png" id="2_i8fy4"]
+[ext_resource type="Texture2D" uid="uid://wowcbywv8utm" path="res://Sprites/UI/defend_button.png" id="3_sfy5p"]
+
+[node name="ActionUI" type="Control" unique_id=778715002 groups=["ActionMenu"]]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 180.0
+offset_bottom = 260.0
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1805052115]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=161289915]
+layout_mode = 2
+
+[node name="Attack" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=710853899]
+layout_mode = 2
+texture_normal = ExtResource("1_w7onk")
+
+[node name="Use item" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=1892708793]
+layout_mode = 2
+texture_normal = ExtResource("2_i8fy4")
+
+[node name="Defend" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=1747631863]
+layout_mode = 2
+texture_normal = ExtResource("3_sfy5p")

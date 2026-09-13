@@ -1,15 +1,40 @@
 [gd_scene format=4 uid="uid://wr82tnp1jxk2"]
 
 [ext_resource type="TileSet" uid="uid://c0hf3wykcfx8b" path="res://Tiles/Base_demo.tres" id="1_0jree"]
-[ext_resource type="PackedScene" uid="uid://du8xd7rjch7ym" path="res://Scenes/Ludzik_gracz.tscn" id="2_hlwta"]
+[ext_resource type="PackedScene" uid="uid://poklly75nwhi" path="res://Scenes/battle_state_machine.tscn" id="1_4vemg"]
+[ext_resource type="PackedScene" uid="uid://du8xd7rjch7ym" path="res://Scenes/Ludzik_gracza.tscn" id="2_hlwta"]
 [ext_resource type="PackedScene" uid="uid://cu6em24p8e1qe" path="res://Scenes/oponent.tscn" id="3_hrj8l"]
+[ext_resource type="PackedScene" uid="uid://cckiemoefh4fw" path="res://Scenes/action_ui.tscn" id="3_lpcab"]
 [ext_resource type="PackedScene" uid="uid://b3701tbl7h5pl" path="res://Scenes/movement_info.tscn" id="4_movement_info"]
 
 [node name="Node2D" type="Node2D" unique_id=1464242212]
 
+[node name="DebugBattleState" type="RichTextLabel" parent="." unique_id=940455206 groups=["DEBUG_BattleState"]]
+offset_left = -162.0
+offset_top = 89.0
+offset_right = -11.660004
+offset_bottom = 103.729996
+theme_override_font_sizes/normal_font_size = 8
+text = "Siemano"
+
+[node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
+
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAD//wAAAAABAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD+//7/AAABAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAABAP3/AAABAAQAAAACAP3/AAABAAQAAAADAP3/AAABAAQAAAAEAP3/AAABAAQAAAAEAP7/AAABAAQAAAAEAP//AAABAAQAAAAEAAAAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAABAAQAAAADAAIAAAABAAQAAAACAAMAAAABAAQAAAABAAMAAAABAAQAAAAAAAMAAAABAAQAAAAAAAIAAAABAAQAAAD//wIAAAABAAQAAAD+/wIAAAABAAQAAAD+/wEAAAABAAQAAAD/////AAABAAQAAAD+//3/AAABAAQAAAD+/wMAAAABAAQAAAD//wMAAAABAAQAAAADAAMAAAABAAQAAAAEAAMAAAABAAQAAAADAAEAAAABAAQAAAADAAAAAAABAAQAAAADAP//AAABAAQAAAACAP7/AAABAAQAAAABAP7/AAABAAQAAAAAAP7/AAABAAQAAAD//wEAAAABAAQAAAAAAAEAAAABAAQAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAACAAIAAAACAAQAAAACAAEAAAACAAQAAAACAAAAAAACAAQAAAABAAAAAAABAAQAAAABAP//AAACAAQAAAAAAP//AAACAAQAAAACAP//AAACAAQAAAADAP7/AAABAAQAAAD+//z/AAACAAQAAAD9//z/AAACAAQAAAD9//3/AAACAAQAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAACAAQAAAD+/wQAAAACAAQAAAD//wQAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAACAAQAAAACAAQAAAACAAQAAAADAAQAAAACAAQAAAAEAAQAAAACAAQAAAAFAAQAAAACAAQAAAAFAAMAAAACAAQAAAAFAAIAAAACAAQAAAAFAAEAAAACAAQAAAAFAAAAAAACAAQAAAAFAP//AAACAAQAAAAFAP7/AAACAAQAAAAFAP3/AAACAAQAAAD///z/AAACAAQAAAAAAPz/AAACAAQAAAABAPz/AAACAAQAAAACAPz/AAACAAQAAAADAPz/AAACAAQAAAAEAPz/AAACAAQAAAAFAPz/AAACAAQAAAA=")
 tile_set = ExtResource("1_0jree")
+
+[node name="ActionUI" parent="." unique_id=778715002 instance=ExtResource("3_lpcab")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 172.0
+offset_top = -52.0
+offset_right = 172.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 
 [node name="MovementInfo" parent="." unique_id=1816014512 instance=ExtResource("4_movement_info")]
 offset_left = -167.0
@@ -18,7 +43,7 @@ offset_right = 57.0
 offset_bottom = -54.0
 scale = Vector2(0.5, 0.5)
 
-[node name="Ludzik_gracza" parent="." unique_id=593328418 instance=ExtResource("2_hlwta")]
+[node name="Ludzik_gracza" parent="." unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1928492938]
 position = Vector2(23, 5)

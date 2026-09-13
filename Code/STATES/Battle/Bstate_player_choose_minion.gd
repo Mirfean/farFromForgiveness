@@ -1,20 +1,43 @@
-extends Node
+extends battle_state
 class_name Bstate_player_choose_minion
 
 @export var player_minions: Array[Ludzik_gracza]
 
 @export var id_selected_minion: int
-@export var selected_minion: CharacterBody2D
+@export var selected_minion: Ludzik_gracza
 
 func Enter():
-	next_minion(0)
-	pass
+	print_debug("Choose player minion")
+	
+	getMinions()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_left") or event.is_action_pressed("move_right"):
-		next_minion(id_selected_minion+1)
+	if player_minions.size() == 0:
+		Transitioned.emit(self, "Bstate_player_end_turn")
+		return
+	
+	next_minion(0)
+
+func InputState(event: InputEvent) -> void:
+	#Add mouse choice in the far future :>
+	if event.is_action_pressed("move_left"):
+		next_minion(abs(id_selected_minion-1))
+	if event.is_action_pressed("move_right"):
+		next_minion(abs(id_selected_minion+1))
+	if event.is_action_pressed("confirm"):
+		Transitioned.emit(self, "Bstate_movement")
+
+func getMinions():
+	var minions = get_tree().get_nodes_in_group("Player_char") as Array[Ludzik_gracza]
+	for minion in minions:
+		if minion is Ludzik_gracza:
+			player_minions.append(minion)
 
 func next_minion(id: int):
 	id_selected_minion = id % player_minions.size()
 	selected_minion = player_minions[id_selected_minion]
 	
+func Exit():
+	### DEBUG ###
+	selected_minion.active = true
+	
+	pass

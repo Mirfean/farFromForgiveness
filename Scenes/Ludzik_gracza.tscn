@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://du8xd7rjch7ym"]
 
 [ext_resource type="Texture2D" uid="uid://rb0o60qsgmtg" path="res://Sprites/Ludki.png" id="1_5g057"]
-[ext_resource type="Script" uid="uid://dhlhm0vp68fwn" path="res://Code/player.gd" id="1_dpjj4"]
+[ext_resource type="Script" uid="uid://dhlhm0vp68fwn" path="res://Code/Ludzik_gracza.gd" id="1_dpjj4"]
 [ext_resource type="Script" uid="uid://51rlyg3krpis" path="res://Code/character_stats.gd" id="2_b46ru"]
 [ext_resource type="Resource" uid="uid://vjnqeo1x5q4u" path="res://Resources/Characters Stats/demo_player.tres" id="2_dm3j1"]
 

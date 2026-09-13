@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://poklly75nwhi"]
+
+[ext_resource type="Script" uid="uid://b5vh17cuwbswc" path="res://Code/STATES/Battle/Bstate_start_player_turn.gd" id="1_2rlyr"]
+[ext_resource type="Script" uid="uid://de83urk54mb1v" path="res://Code/STATES/Battle/Bstate_action_selection.gd" id="1_se2t2"]
+[ext_resource type="Script" uid="uid://cjokrgw04qsd5" path="res://Code/State_Factory_Battle.gd" id="1_yrjsm"]
+[ext_resource type="Script" uid="uid://bxx4bn8me3flj" path="res://Code/STATES/Battle/Bstate_attack.gd" id="2_6ogov"]
+[ext_resource type="Script" uid="uid://dtpmgor71mhpc" path="res://Code/STATES/Battle/Bstate_player_choose_minion.gd" id="2_yrjsm"]
+[ext_resource type="Script" uid="uid://dlrw2bgn67574" path="res://Code/STATES/Battle/Bstate_movement.gd" id="3_wsdno"]
+[ext_resource type="Script" uid="uid://bekcjhicvives" path="res://Code/STATES/Battle/Bstate_player_choose_attack.gd" id="5_7cr5u"]
+[ext_resource type="Script" uid="uid://8oh4kql4t3sj" path="res://Code/STATES/Battle/Bstate_player_end_action.gd" id="7_f700d"]
+[ext_resource type="Script" uid="uid://cl2l0gkt6oueh" path="res://Code/STATES/Battle/Bstate_player_end_turn.gd" id="8_8vd7r"]
+
+[node name="BattleStateMachine" type="Node" unique_id=1425635360 node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_yrjsm")
+current_state = NodePath("Bstate_start_player_turn")
+
+[node name="Bstate_start_player_turn" type="Node" parent="." unique_id=546719923]
+script = ExtResource("1_2rlyr")
+
+[node name="Bstate_player_choose_minion" type="Node" parent="." unique_id=144130110]
+script = ExtResource("2_yrjsm")
+
+[node name="Bstate_movement" type="Node" parent="." unique_id=2016913454]
+script = ExtResource("3_wsdno")
+
+[node name="Bstate_action_selection" type="Node" parent="." unique_id=1898885650]
+script = ExtResource("1_se2t2")
+
+[node name="Bstate_player_choose_attack" type="Node" parent="." unique_id=596700942]
+script = ExtResource("5_7cr5u")
+
+[node name="Bstate_attack" type="Node" parent="." unique_id=455251100]
+script = ExtResource("2_6ogov")
+
+[node name="Bstate_player_end_action" type="Node" parent="." unique_id=862571345]
+script = ExtResource("7_f700d")
+
+[node name="Bstate_player_end_turn" type="Node" parent="." unique_id=1138322370]
+script = ExtResource("8_8vd7r")

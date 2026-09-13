@@ -10,3 +10,6 @@ func InputState(event: InputEvent):
 		
 	if event.is_action_pressed("confirm"):
 		Transitioned.emit(self, "Bstate_action_selection")
+
+func Exit():
+	pass

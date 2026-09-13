@@ -6,7 +6,8 @@ class_name Bstate_attack
 
 func Enter():
 	#Sending info to attack_UI? Or emit signal from there to execute info share and process attack?
-	pass
+	print_debug("ATTACK!")
+	Transitioned.emit(self, "Bstate_player_end_action")
 	
 func Exit():
-	Transitioned.emit(self, )
+	pass
