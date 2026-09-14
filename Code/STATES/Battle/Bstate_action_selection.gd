@@ -3,6 +3,8 @@ class_name Bstate_action_selection
 
 @export var action_menu: Control
 
+signal action_selected(action: String)
+
 func Enter():
 	print_debug("Action selection")
 	
@@ -17,6 +19,7 @@ func InputState(event: InputEvent):
 		#Do action from current button
 		#Do not remove current button if cursor is away from but set it if cursor just touched button
 		#Currently, only attack after confirm xD
+		action_selected.emit("Attack")
 		Transitioned.emit(self, "Bstate_player_choose_attack")
 	if event.is_action_pressed("back"):
 		Transitioned.emit(self, "BState_movement")

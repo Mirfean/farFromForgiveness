@@ -9,6 +9,9 @@ const inputs = {
 }
 
 @export var active: bool
+@export var used_this_turn: bool = false
+
+
 @export var raycast: RayCast2D
 @export var stats: character_stats
 @export var r_stats: r_character_stats

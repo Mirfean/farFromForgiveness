@@ -1,6 +1,8 @@
 extends battle_state
 class_name Bstate_player_choose_minion
 
+signal minion_selected(minion: Ludzik_gracza)
+
 @export var player_minions: Array[Ludzik_gracza]
 
 @export var id_selected_minion: int
@@ -35,6 +37,7 @@ func getMinions():
 func next_minion(id: int):
 	id_selected_minion = id % player_minions.size()
 	selected_minion = player_minions[id_selected_minion]
+	minion_selected.emit(selected_minion)
 	
 func Exit():
 	### DEBUG ###
