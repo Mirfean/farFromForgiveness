@@ -3,10 +3,13 @@
 [ext_resource type="TileSet" uid="uid://c0hf3wykcfx8b" path="res://Tiles/Base_demo.tres" id="1_0jree"]
 [ext_resource type="PackedScene" uid="uid://poklly75nwhi" path="res://Scenes/battle_state_machine.tscn" id="1_4vemg"]
 [ext_resource type="Script" uid="uid://cnnuxwpher8c1" path="res://Code/STATES/Battle/BattleTurnManager.gd" id="1_fnnck"]
+[ext_resource type="Texture2D" uid="uid://cxjm7ngrc08je" path="res://Sprites/selection_box.png" id="2_4i7ud"]
 [ext_resource type="PackedScene" uid="uid://du8xd7rjch7ym" path="res://Scenes/Ludzik_gracza.tscn" id="2_hlwta"]
 [ext_resource type="PackedScene" uid="uid://cu6em24p8e1qe" path="res://Scenes/oponent.tscn" id="3_hrj8l"]
 [ext_resource type="PackedScene" uid="uid://cckiemoefh4fw" path="res://Scenes/action_ui.tscn" id="3_lpcab"]
 [ext_resource type="PackedScene" uid="uid://b3701tbl7h5pl" path="res://Scenes/movement_info.tscn" id="4_movement_info"]
+[ext_resource type="Script" uid="uid://dw5kgr7xwrjr5" path="res://Code/MovementManager.gd" id="8_ecetj"]
+[ext_resource type="Script" uid="uid://cykkm7y3kas2w" path="res://Code/selection_manager.gd" id="9_oilx1"]
 
 [node name="Node2D" type="Node2D" unique_id=1464242212]
 
@@ -18,11 +21,27 @@ offset_bottom = 103.729996
 theme_override_font_sizes/normal_font_size = 8
 text = "Siemano"
 
+[node name="SelectionManager" type="Node" parent="." unique_id=1182601867 node_paths=PackedStringArray("selection_box")]
+script = ExtResource("9_oilx1")
+selection_box = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="SelectionManager" unique_id=478897855]
+texture = ExtResource("2_4i7ud")
+centered = false
+offset = Vector2(-2, -2)
+
+[node name="MovementManager" type="Node" parent="." unique_id=949361381]
+script = ExtResource("8_ecetj")
+
 [node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
 
-[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine")]
+[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "MoveManager", "SelectionModule", "PlayerContainer", "EnemyContainer")]
 script = ExtResource("1_fnnck")
 BattleStateMachine = NodePath("../BattleStateMachine")
+MoveManager = NodePath("../MovementManager")
+SelectionModule = NodePath("../SelectionManager")
+PlayerContainer = NodePath("../PlayerMinions")
+EnemyContainer = NodePath("../EnemyMinions")
 metadata/_custom_type_script = "uid://cnnuxwpher8c1"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
@@ -49,11 +68,29 @@ offset_right = 57.0
 offset_bottom = -54.0
 scale = Vector2(0.5, 0.5)
 
-[node name="Ludzik_gracza" parent="." unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1928492938]
 position = Vector2(23, 5)
 zoom = Vector2(3.015, 3.015)
 
-[node name="oponent" parent="." unique_id=1535029483 instance=ExtResource("3_hrj8l")]
+[node name="PlayerMinions" type="Node" parent="." unique_id=919215767]
+
+[node name="Ludzik_gracza" parent="PlayerMinions" unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+
+[node name="Ludzik_gracza2" parent="PlayerMinions" unique_id=2103453396 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+position = Vector2(-16, -32)
+
+[node name="Ludzik_gracza3" parent="PlayerMinions" unique_id=1034769860 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+position = Vector2(31, -48)
+
+[node name="Ludzik_gracza4" parent="PlayerMinions" unique_id=1719327652 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+position = Vector2(61, -17)
+
+[node name="Ludzik_gracza5" parent="PlayerMinions" unique_id=1758236086 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+position = Vector2(55, 44)
+
+[node name="EnemyMinions" type="Node" parent="." unique_id=1255838348]
+
+[node name="oponent" parent="EnemyMinions" unique_id=1535029483 instance=ExtResource("3_hrj8l")]
 position = Vector2(48, 16)
+
+[node name="NeutralMinions" type="Node" parent="." unique_id=174572424]
