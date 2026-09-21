@@ -84,6 +84,7 @@ func refresh_player_minions() -> void:
 func cleaner():
 	current_minion = null
 	current_target = null
+	selection_index = 0
 
 func begin_player_phase() -> void:
 	cleaner()
@@ -99,13 +100,13 @@ func begin_enemy_phase() -> void:
 	current_phase = battle_phase.enemy
 
 func next_player_turn():
-	refresh_player_minions()
 	if len(not_used_minions_this_turn) == 0:
 		print_debug("End player's round")
 		start_enemy_round()
 		return
 	
 	movement_path.clear()
+	cleaner()
 	start_selection_by_module(0)
 
 func start_enemy_round():
@@ -128,7 +129,7 @@ func on_minion_change(side: bool):
 	elif selection_index >= len(not_used_minions_this_turn):
 		selection_index = 0
 	
-	SelectionModule.move_box(player_minions[selection_index].global_position)
+	SelectionModule.move_box(not_used_minions_this_turn[selection_index].global_position)
 
 func on_minion_selected(id: int) -> void:
 	current_minion = not_used_minions_this_turn[selection_index]
@@ -163,6 +164,9 @@ func finish_action() -> void:
 	if current_minion:
 		not_used_minions_this_turn.remove_at(selection_index)
 		used_minions_this_turn.append(current_minion)
+
+	for minion in not_used_minions_this_turn:
+		print_debug(minion.name)
 	
 	cleaner()
 	next_player_turn()
