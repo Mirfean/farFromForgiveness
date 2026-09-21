@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dhlhm0vp68fwn" path="res://Code/Ludzik_gracza.gd" id="1_dpjj4"]
 [ext_resource type="Script" uid="uid://51rlyg3krpis" path="res://Code/character_stats.gd" id="2_b46ru"]
 [ext_resource type="Resource" uid="uid://vjnqeo1x5q4u" path="res://Resources/Characters Stats/demo_player.tres" id="2_dm3j1"]
+[ext_resource type="FontFile" uid="uid://c2a2akkh6f3gp" path="res://tiny4px.ttf" id="5_tdlac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dpjj4"]
 atlas = ExtResource("1_5g057")
@@ -86,3 +87,12 @@ shape = SubResource("RectangleShape2D_5g057")
 self_modulate = Color(0.7933751, 0.09721158, 0.5017716, 1)
 position = Vector2(8, 8)
 target_position = Vector2(16, 0)
+
+[node name="DebugText" type="RichTextLabel" parent="." unique_id=240000042]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 109.0
+offset_bottom = 1.0
+theme_override_fonts/normal_font = ExtResource("5_tdlac")
+theme_override_font_sizes/normal_font_size = 16
+text = "Siemanko"

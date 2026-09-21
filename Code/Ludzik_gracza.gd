@@ -11,6 +11,8 @@ const inputs = {
 @export var active: bool
 @export var used_this_turn: bool = false
 
+@onready var debug_text: RichTextLabel = $DebugText
+
 
 @export var raycast: RayCast2D
 @export var stats: character_stats
@@ -18,6 +20,7 @@ const inputs = {
 
 func _ready() -> void:
 	stats.load_resource(r_stats)
+	debug_text.text = self.name
 
 func _unhandled_input(event: InputEvent) -> void:
 	if active:

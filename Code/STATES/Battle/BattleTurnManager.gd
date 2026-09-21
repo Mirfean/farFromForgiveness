@@ -12,7 +12,9 @@ enum battle_phase {
 @export var SelectionModule: selection_module
 
 var current_phase: battle_phase = battle_phase.player
+
 var current_minion: Node2D = null #Dodać później wspólnego parenta dla wszystkich ludków
+var current_target: Node
 
 var selection_index: int = 0
 
@@ -68,7 +70,7 @@ func connect_state_signals() -> void:
 	if after_player_action:
 		if after_player_action.has_signal("action_performed"):
 			#TODO change it to something logical
-			#after_player_action.action_performed.connect(start_player_action_line)
+			after_player_action.action_performed.connect(finish_action)
 			print_debug("action end")
 
 #One time on start of battle
@@ -79,30 +81,38 @@ func refresh_player_minions() -> void:
 		if minion is Ludzik_gracza:
 			minion.used_this_turn = false
 
+func cleaner():
+	current_minion = null
+	current_target = null
+
 func begin_player_phase() -> void:
+	cleaner()
 	current_phase = battle_phase.player
+	refresh_player_minions()
 	not_used_minions_this_turn = [] + player_minions
 	used_minions_this_turn = []
-	movement_path.clear()
-	start_selection_by_module(0)
-	#TODO Dodać connect do startu rundy gracza
+	next_player_turn()
 
 func begin_enemy_phase() -> void:
 	not_used_minions_this_turn = [] + enemy_minions
 	used_minions_this_turn = []
 	current_phase = battle_phase.enemy
-	#TODO Dodać connect do startu rundy enemy
 
-#func start_player_action_line():
-#	if len(not_used_minions_this_turn) == 0:
-#		print_debug("End player's round")
-#		current_phase = battle_phase.enemy
-#	else:
-#		used_minions_this_turn.append(current_minion)
-#		not_used_minions_this_turn.erase(current_minion)
-#		#prepare new turn
-#		start_selection_by_module(0)
+func next_player_turn():
+	refresh_player_minions()
+	if len(not_used_minions_this_turn) == 0:
+		print_debug("End player's round")
+		start_enemy_round()
+		return
+	
+	movement_path.clear()
+	start_selection_by_module(0)
 
+func start_enemy_round():
+	#TODO disconnect things from player turn if any is left
+	begin_enemy_phase()
+	pass
+	
 func start_selection_by_module(id: int):
 	SelectionModule.start_selection()
 	SelectionModule.move_box(not_used_minions_this_turn[id].global_position)
@@ -112,14 +122,17 @@ func on_minion_change(side: bool):
 		selection_index += 1
 	else:
 		selection_index -= 1
+		
 	if selection_index < 0:
 		selection_index = len(not_used_minions_this_turn) - 1
 	elif selection_index >= len(not_used_minions_this_turn):
 		selection_index = 0
+	
 	SelectionModule.move_box(player_minions[selection_index].global_position)
 
 func on_minion_selected(id: int) -> void:
 	current_minion = not_used_minions_this_turn[selection_index]
+	print_debug(current_minion.name)
 	SelectionModule.stop_selection()
 
 func revert_selection():
@@ -138,16 +151,21 @@ func on_target_selected(target: Node) -> void:
 	#Przekazanie pola z grida bo można by atakować też puste pola by zastawiać pułapki itd
 	pass
 
-func mark_minion_moved(minion: Ludzik_gracza, path: Array) -> void:
-	movement_path = path
-
 func minion_attack() -> void:
 	current_minion.used_this_turn = true
 	#TODO make attack current minion -> current_target
 
-func finish_action(minion: Ludzik_gracza) -> void:
-	if minion == current_minion:
-		minion.used_this_turn = true
+func finish_action() -> void:
+	
+	print_debug(current_minion.name + " " + str(selection_index) + " VS " + str(not_used_minions_this_turn.find(current_minion)))
+	
+	
+	if current_minion:
+		not_used_minions_this_turn.remove_at(selection_index)
+		used_minions_this_turn.append(current_minion)
+	
+	cleaner()
+	next_player_turn()
 
 func on_action_selected(action: String) -> void:
 	if action == "move":
@@ -165,7 +183,6 @@ func on_battle_started() -> void:
 func on_battle_ended() -> void:
 	#TODO Dodać logikę końca bitwy
 	pass
-
 
 func reset_turn_flags() -> void:
 	print_debug("New turn")
