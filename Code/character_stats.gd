@@ -9,3 +9,4 @@ func load_resource(stats: r_character_stats):
 	hp = stats.hp
 	movement = stats.movement
 	attack = stats.attack
+	

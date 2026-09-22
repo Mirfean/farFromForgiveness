@@ -13,6 +13,8 @@ func is_attack_possible():
 	perform_attack()
 	
 func InputState(event: InputEvent)-> void:
+	
+	
 	if event.is_action_pressed("back"):
 		Transitioned.emit("Bstate_player_choose_attack")
 	if event.is_action_pressed("confirm"):

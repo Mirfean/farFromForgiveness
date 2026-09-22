@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="character_stats" format=3 uid="uid://vjnqeo1x5q4u"]
+[gd_resource type="Resource" script_class="r_character_stats" format=3 uid="uid://vjnqeo1x5q4u"]
 
 [ext_resource type="Script" uid="uid://cahiu86ipoto8" path="res://Code/resources/r_character_stats.gd" id="1_sp60s"]
+[ext_resource type="Resource" uid="uid://bcf33ufi4defw" path="res://Resources/weapons/punch.tres" id="2_7gg0m"]
 
 [resource]
 script = ExtResource("1_sp60s")
 hp = 5
 movement = 6
 attack = 1
+speed = 3
+weapon = ExtResource("2_7gg0m")
 metadata/_custom_type_script = "uid://cahiu86ipoto8"

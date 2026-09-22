@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="r_weapon" format=3 uid="uid://bcf33ufi4defw"]
+
+[ext_resource type="Script" uid="uid://braor23n6ivl1" path="res://Code/resources/r_weapon.gd" id="1_rlx1e"]
+
+[resource]
+script = ExtResource("1_rlx1e")
+damage = 1
+range = 1
