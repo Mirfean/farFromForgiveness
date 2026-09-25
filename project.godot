@@ -30,6 +30,7 @@ Player_char="Player's minion"
 Enemy_char=""
 Player="Main character"
 DEBUG_BattleState=""
+MovementManager=""
 
 [input]
 

@@ -18,9 +18,12 @@ const inputs = {
 @export var stats: character_stats
 @export var r_stats: r_character_stats
 
+@export var grid_position: Vector2i
+
 func _ready() -> void:
 	stats.load_resource(r_stats)
 	debug_text.text = self.name
+	#TODO DODAĆ STARTOWĄ WARTOŚĆ
 
 func _unhandled_input(event: InputEvent) -> void:
 	if active:
@@ -33,7 +36,12 @@ func move(action):
 	raycast.target_position = destination
 	raycast.force_raycast_update()
 	if not raycast.is_colliding():
-		position += destination
+		global_position += destination
+		update_grid_position(inputs[action])
 	else:
 		var collider = raycast.get_collider()
 		print(collider.name)
+
+func update_grid_position(move: Vector2):
+	grid_position.x += move.x
+	grid_position.y += move.y

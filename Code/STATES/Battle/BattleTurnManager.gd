@@ -8,8 +8,9 @@ enum battle_phase {
 }
 
 @export var BattleStateMachine: State_Factory_Battle
-@export var MoveManager: MovementManager
-@export var SelectionModule: selection_module
+@export var movementManager: MovementManager
+@export var mapManager: MapManager
+@export var selectionModule: selection_module
 
 var current_phase: battle_phase = battle_phase.player
 
@@ -24,8 +25,9 @@ var player_minions: Array = []
 @export var EnemyContainer: Node
 var enemy_minions: Array = []
 
-var used_minions_this_turn: Array = []
 var not_used_minions_this_turn: Array = []
+var used_minions_this_turn: Array = []
+
 var movement_path: Array = []
 
 func _ready() -> void:
@@ -115,8 +117,8 @@ func start_enemy_round():
 	pass
 	
 func start_selection_by_module(id: int):
-	SelectionModule.start_selection()
-	SelectionModule.move_box(not_used_minions_this_turn[id].global_position)
+	selectionModule.start_selection()
+	selectionModule.move_box(not_used_minions_this_turn[id].global_position)
 
 func on_minion_change(side: bool):
 	if side:
@@ -129,20 +131,21 @@ func on_minion_change(side: bool):
 	elif selection_index >= len(not_used_minions_this_turn):
 		selection_index = 0
 	
-	SelectionModule.move_box(not_used_minions_this_turn[selection_index].global_position)
+	selectionModule.move_box(not_used_minions_this_turn[selection_index].global_position)
 
 func on_minion_selected(id: int) -> void:
 	current_minion = not_used_minions_this_turn[selection_index]
 	print_debug(current_minion.name)
-	SelectionModule.stop_selection()
+	selectionModule.stop_selection()
 
 func revert_selection():
 	#Cofnij miniona do startowego miejsca
 	current_minion.active = false
 	current_minion = null
-	SelectionModule.start_selection()
+	selectionModule.start_selection()
 	
 func start_move_minion():
+	movementManager.highlight_movement_range()
 	current_minion.active = true
 
 func stop_move_minion():
