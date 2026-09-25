@@ -18,7 +18,7 @@ const inputs = {
 @export var stats: character_stats
 @export var r_stats: r_character_stats
 
-var movement: int
+@export var movement: int
 
 @export var grid_position: Vector2i
 

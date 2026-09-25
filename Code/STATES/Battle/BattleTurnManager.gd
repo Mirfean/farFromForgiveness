@@ -99,6 +99,7 @@ func begin_player_phase() -> void:
 	current_phase = battle_phase.player
 	refresh_player_minions()
 	minions_this_turn = mapManager.set_grid_positions(player_minions)
+	update_grid_pos_for_selection()
 	#used_minions_this_turn = []
 	next_player_turn()
 
@@ -145,7 +146,7 @@ func on_minion_selected(id: int) -> void:
 	selectionModule.stop_selection()
 
 func revert_selection():
-	#Cofnij miniona do startowego miejsca
+	#TODO Cofnij miniona do startowego miejsca
 	current_minion.active = false
 	current_minion = null
 	selectionModule.start_selection()
@@ -196,3 +197,10 @@ func reset_turn_flags() -> void:
 		if minion is Ludzik_gracza:
 			minion.used_this_turn = false
 	begin_player_phase()
+	
+func update_grid_pos_for_selection():
+	for key in minions_this_turn:
+		var indexik = selectable_minions.find(minions_this_turn[key])
+		if indexik >= 0:
+			selectable_minions[indexik].grid_position.x = key.x
+			selectable_minions[indexik].grid_position.y = key.y

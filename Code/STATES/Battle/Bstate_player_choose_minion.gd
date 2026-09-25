@@ -26,8 +26,6 @@ func InputState(event: InputEvent) -> void:
 #false: <-   true: -> 
 func next_minion(side: bool):
 	change_minion.emit(side)
-	#id_selected_minion = id % player_minions.size()
-	#selected_minion = player_minions[id_selected_minion]
 
 	
 func Exit():

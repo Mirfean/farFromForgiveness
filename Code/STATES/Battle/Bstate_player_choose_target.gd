@@ -3,7 +3,7 @@ class_name Bstate_player_choose_target
 
 signal target_selected(target: Node) #Pole na gridzie?
 
-@export var selection_module: Node
+@export var select_module: Node
 
 func Enter():
 	print_debug("player choose target")
@@ -21,8 +21,8 @@ func InputState(event: InputEvent)-> void:
 		perform_attack()
 	
 func perform_attack():
-	if selection_module:
-		target_selected.emit(selection_module.current_selected)
+	if select_module:
+		target_selected.emit(select_module.current_selected)
 	Transitioned.emit(self, "Bstate_attack")
 
 func Exit():

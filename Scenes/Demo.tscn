@@ -89,6 +89,7 @@ zoom = Vector2(3.015, 3.015)
 
 [node name="Ludzik_gracza2" parent="PlayerMinions" unique_id=2103453396 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(-16, -32)
+movement = 5
 
 [node name="Ludzik_gracza3" parent="PlayerMinions" unique_id=1034769860 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(32, -48)
