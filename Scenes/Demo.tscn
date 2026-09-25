@@ -31,19 +31,23 @@ texture = ExtResource("2_4i7ud")
 centered = false
 offset = Vector2(-2, -2)
 
-[node name="MapManager" type="Node" parent="." unique_id=321512181]
+[node name="MapManager" type="Node" parent="." unique_id=321512181 node_paths=PackedStringArray("main_tilemap", "tilemap_ui")]
 script = ExtResource("3_ymvx6")
+main_tilemap = NodePath("../TileMapLayer")
+tilemap_ui = NodePath("../UI")
 
-[node name="MovementManager" type="Node" parent="." unique_id=949361381 groups=["MovementManager"]]
+[node name="MovementManager" type="Node" parent="." unique_id=949361381 node_paths=PackedStringArray("mapManager") groups=["MovementManager"]]
 script = ExtResource("8_ecetj")
+mapManager = NodePath("../MapManager")
 
 [node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
 
-[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "MoveManager", "SelectionModule", "PlayerContainer", "EnemyContainer")]
+[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "selectionModule", "PlayerContainer", "EnemyContainer")]
 script = ExtResource("1_fnnck")
 BattleStateMachine = NodePath("../BattleStateMachine")
-MoveManager = NodePath("../MovementManager")
-SelectionModule = NodePath("../SelectionManager")
+movementManager = NodePath("../MovementManager")
+mapManager = NodePath("../MapManager")
+selectionModule = NodePath("../SelectionManager")
 PlayerContainer = NodePath("../PlayerMinions")
 EnemyContainer = NodePath("../EnemyMinions")
 metadata/_custom_type_script = "uid://cnnuxwpher8c1"

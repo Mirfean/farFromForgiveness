@@ -25,13 +25,12 @@ var player_minions: Array = []
 @export var EnemyContainer: Node
 var enemy_minions: Array = []
 
-var not_used_minions_this_turn: Array = []
-var used_minions_this_turn: Array = []
+var minions_this_turn: Dictionary
+var selectable_minions: Array
 
 var movement_path: Array = []
 
 func _ready() -> void:
-	refresh_player_minions()
 	connect_state_signals()
 	begin_player_phase()
 
@@ -81,7 +80,14 @@ func refresh_player_minions() -> void:
 	player_minions = PlayerContainer.get_children()
 	for minion in player_minions:
 		if minion is Ludzik_gracza:
+			selectable_minions.append(minion)
 			minion.used_this_turn = false
+
+func refresh_enemy_minions() -> void:
+	print_debug("Refresh enemies")
+	
+	
+	#TODO the rest xD
 
 func cleaner():
 	current_minion = null
@@ -92,17 +98,17 @@ func begin_player_phase() -> void:
 	cleaner()
 	current_phase = battle_phase.player
 	refresh_player_minions()
-	not_used_minions_this_turn = [] + player_minions
-	used_minions_this_turn = []
+	minions_this_turn = mapManager.set_grid_positions(player_minions)
+	#used_minions_this_turn = []
 	next_player_turn()
 
 func begin_enemy_phase() -> void:
-	not_used_minions_this_turn = [] + enemy_minions
-	used_minions_this_turn = []
+	#minions_this_turn = [] + enemy_minions
+	#used_minions_this_turn = []
 	current_phase = battle_phase.enemy
 
 func next_player_turn():
-	if len(not_used_minions_this_turn) == 0:
+	if len(minions_this_turn) == 0:
 		print_debug("End player's round")
 		start_enemy_round()
 		return
@@ -118,7 +124,7 @@ func start_enemy_round():
 	
 func start_selection_by_module(id: int):
 	selectionModule.start_selection()
-	selectionModule.move_box(not_used_minions_this_turn[id].global_position)
+	selectionModule.move_box(selectable_minions[0].global_position)
 
 func on_minion_change(side: bool):
 	if side:
@@ -127,14 +133,14 @@ func on_minion_change(side: bool):
 		selection_index -= 1
 		
 	if selection_index < 0:
-		selection_index = len(not_used_minions_this_turn) - 1
-	elif selection_index >= len(not_used_minions_this_turn):
+		selection_index = len(selectable_minions) - 1
+	elif selection_index >= len(selectable_minions):
 		selection_index = 0
 	
-	selectionModule.move_box(not_used_minions_this_turn[selection_index].global_position)
+	selectionModule.move_box(selectable_minions[selection_index].global_position)
 
 func on_minion_selected(id: int) -> void:
-	current_minion = not_used_minions_this_turn[selection_index]
+	current_minion = selectable_minions[selection_index]
 	print_debug(current_minion.name)
 	selectionModule.stop_selection()
 
@@ -145,7 +151,7 @@ func revert_selection():
 	selectionModule.start_selection()
 	
 func start_move_minion():
-	movementManager.highlight_movement_range()
+	movementManager.highlight_movement_range(current_minion.grid_position, current_minion.movement)
 	current_minion.active = true
 
 func stop_move_minion():
@@ -160,16 +166,9 @@ func minion_attack() -> void:
 	#TODO make attack current minion -> current_target
 
 func finish_action() -> void:
-	
-	print_debug(current_minion.name + " " + str(selection_index) + " VS " + str(not_used_minions_this_turn.find(current_minion)))
-	
-	
-	if current_minion:
-		not_used_minions_this_turn.remove_at(selection_index)
-		used_minions_this_turn.append(current_minion)
-
-	for minion in not_used_minions_this_turn:
-		print_debug(minion.name)
+	if selectable_minions.has(current_minion):
+		selectable_minions.erase(current_minion)
+	minions_this_turn.erase(current_minion)
 	
 	cleaner()
 	next_player_turn()

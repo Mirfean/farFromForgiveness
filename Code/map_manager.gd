@@ -1,6 +1,10 @@
 extends Node
 class_name MapManager
 
+#TEMPORARY
+const grid_start = Vector2i(-64, -64)
+const cell_size = 16
+
 var astargrid: AStarGrid2D
 @export var main_tilemap: TileMapLayer
 @export var tilemap_ui: TileMapLayer
@@ -17,10 +21,11 @@ func _ready() -> void:
 	astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
 	astargrid.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	astargrid.update()
 	set_obstacles()
 	setup_grid_from_tilemap()
 	print(astargrid.get_id_path(Vector2i(0, 0), Vector2i(0, 3)))
-	
+	astargrid.update()
 
 func set_obstacles():
 	for x in map_size.x:
@@ -61,3 +66,17 @@ func setup_grid_from_tilemap():
 				astargrid.set_point_solid(cell, true)
 			elif move_cost > 0:
 				astargrid.set_point_weight_scale(cell, move_cost)
+
+func calculate_grid_position(pos: Vector2) -> Vector2i:
+	var x = (pos.x + grid_start.x) / cell_size
+	var y = (pos.y + grid_start.y) / cell_size
+	return Vector2i(x, y)
+
+func set_grid_positions(list: Array) -> Dictionary:
+	var result = {}
+	for minion in list:
+		result[calculate_grid_position(minion.global_position)] = minion
+	return result
+	
+	
+	
