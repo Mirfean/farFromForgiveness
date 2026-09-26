@@ -14,7 +14,6 @@ func _ready() -> void:
 
 # Taken from internet :>
 func get_reachable_cells(start_cell: Vector2i, max_movement: int) -> Dictionary:
-	mapManager.astargrid.update()
 	var astargrid = mapManager.astargrid
 	print_debug("For " + str(start_cell) )
 	var reachable: Dictionary = {}
@@ -48,7 +47,6 @@ func get_reachable_cells(start_cell: Vector2i, max_movement: int) -> Dictionary:
 
 func highlight_movement_range(start_cell: Vector2i, movement_points: int):
 	var reachable_cells = get_reachable_cells(start_cell, movement_points)
-	#TODO przesunąć o -64 -64
 	mapManager.tilemap_ui.clear()
 	for cell in reachable_cells.keys():
 		mapManager.tilemap_ui.set_cell(cell, SOURCE_ID, movement_highlight_tile)

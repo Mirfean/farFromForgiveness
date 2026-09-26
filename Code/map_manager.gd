@@ -15,8 +15,8 @@ func _ready() -> void:
 	
 	#TODO move it later to resource loader for map
 	map_size = Vector2i(1024, 1024)
-	astargrid.region = Rect2i(-64, -64, map_size.x, map_size.y)
-	astargrid.cell_size = Vector2i(16, 16)
+	astargrid.region = Rect2i(grid_start.x, grid_start.y, map_size.x, map_size.y)
+	astargrid.cell_size = Vector2i(cell_size, cell_size)
 	
 	astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
@@ -24,9 +24,8 @@ func _ready() -> void:
 	astargrid.update()
 	set_obstacles()
 	setup_grid_from_tilemap()
-	print_debug("Debug Siema")
 	astargrid.update()
-	print_debug("Debug Siema")
+	
 
 func set_obstacles():
 	for x in map_size.x:
@@ -50,9 +49,6 @@ func apply_mud_effect(target_tile: Vector2i):
 	astargrid.set_point_weight_scale(target_tile, 3.0)
 
 func setup_grid_from_tilemap():
-	#var used_rect: Rect2i = main_tilemap.get_used_rect()
-	#astargrid.region = used_rect
-	#astargrid.cell_size = main_tilemap.tile_set.tile_size
 	astargrid.update()
 
 	for cell in main_tilemap.get_used_cells():
@@ -68,9 +64,7 @@ func setup_grid_from_tilemap():
 				astargrid.set_point_weight_scale(cell, move_cost)
 
 func calculate_grid_position(pos: Vector2) -> Vector2i:
-	var x = (pos.x - grid_start.x) / cell_size
-	var y = (pos.y - grid_start.y) / cell_size
-	return Vector2i(x, y)
+	return main_tilemap.local_to_map(main_tilemap.to_local(pos))
 
 func set_grid_positions(list: Array) -> Dictionary:
 	var result = {}
