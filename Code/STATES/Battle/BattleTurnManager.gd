@@ -38,6 +38,9 @@ func connect_state_signals() -> void:
 	if not BattleStateMachine:
 		return
 	
+	if movementManager:
+		movementManager.MoveCurrentMinion.connect(move_minion)
+	
 	var choose_minion_state = BattleStateMachine.get_state("Bstate_player_choose_minion")
 	if choose_minion_state and choose_minion_state.has_signal("minion_selected"):
 		choose_minion_state.minion_selected.connect(on_minion_selected)
@@ -92,6 +95,7 @@ func refresh_enemy_minions() -> void:
 func cleaner():
 	current_minion = null
 	current_target = null
+	movementManager.cleaner()
 	selection_index = 0
 
 func begin_player_phase() -> void:
@@ -123,6 +127,7 @@ func start_enemy_round():
 	begin_enemy_phase()
 	pass
 	
+	
 func start_selection_by_module(id: int):
 	selectionModule.start_selection()
 	selectionModule.move_box(selectable_minions[0].global_position)
@@ -147,16 +152,18 @@ func on_minion_selected(id: int) -> void:
 
 func revert_selection():
 	#TODO Cofnij miniona do startowego miejsca
-	current_minion.active = false
 	current_minion = null
 	selectionModule.start_selection()
 	
 func start_move_minion():
+	movementManager.setup_new_minion(current_minion)
 	movementManager.highlight_movement_range(current_minion.grid_position, current_minion.movement)
-	current_minion.active = true
 
+func move_minion(move: Vector2i):
+	current_minion.move(move)
+	
 func stop_move_minion():
-	current_minion.active = false
+	print("stop moving minion")
 
 func on_target_selected(target: Node) -> void:
 	#Przekazanie pola z grida bo można by atakować też puste pola by zastawiać pułapki itd

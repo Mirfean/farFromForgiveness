@@ -14,7 +14,7 @@ func _ready() -> void:
 	astargrid = AStarGrid2D.new()
 	
 	#TODO move it later to resource loader for map
-	map_size = Vector2i(1024, 1024)
+	map_size = Vector2i(256, 256)
 	astargrid.region = Rect2i(grid_start.x, grid_start.y, map_size.x, map_size.y)
 	astargrid.cell_size = Vector2i(cell_size, cell_size)
 	
@@ -28,9 +28,9 @@ func _ready() -> void:
 	
 
 func set_obstacles():
-	for x in map_size.x:
-		for x_y in map_size.y:
-			var coords = Vector2i(x, x_y)
+	for x in range(map_size.x + grid_start.x, map_size.x):
+		for y in range(map_size.y + grid_start.y, map_size.y):
+			var coords = Vector2i(x, y)
 			var tile_data = main_tilemap.get_cell_tile_data(coords)
 			
 			if tile_data:
@@ -45,7 +45,6 @@ func set_obstacles():
 func apply_mud_effect(target_tile: Vector2i):
 	#TODO ADD mud tile
 	main_tilemap.set_cell(target_tile, 1, Vector2i(2, 0))
-
 	astargrid.set_point_weight_scale(target_tile, 3.0)
 
 func setup_grid_from_tilemap():

@@ -1,7 +1,16 @@
 extends battle_state
 class_name Bstate_movement
 
+const move_inputs = {
+	"move_right": Vector2.RIGHT,
+	"move_left": Vector2.LEFT,
+	"move_down": Vector2.DOWN,
+	"move_up": Vector2.UP
+}
+
 var movementManager: MovementManager
+
+var remainingMovement: int
 
 signal startMovement
 signal revertMovement
@@ -14,14 +23,23 @@ func Enter():
 	#movementManager.highlight_movement_range()
 
 func InputState(event: InputEvent):
-	
-	if event.is_action_pressed("back"):
+	if event.is_action_pressed("move_down"):
+		checkMovement(move_inputs["move_down"])
+	elif event.is_action_pressed("move_left"):
+		checkMovement(move_inputs["move_left"])
+	elif event.is_action_pressed("move_right"):
+		checkMovement(move_inputs["move_right"])
+	elif event.is_action_pressed("move_up"):
+		checkMovement(move_inputs["move_up"])
+	elif event.is_action_pressed("back"):
 		Transitioned.emit(self, "Bstate_player_choose_minion")
 		revertMovement.emit()
-		
-	if event.is_action_pressed("confirm"):
+	elif event.is_action_pressed("confirm"):
 		Transitioned.emit(self, "Bstate_action_selection")
 		confirmMovement.emit()
 		
 func Exit():
 	pass
+
+func checkMovement(move: Vector2i):
+	movementManager.checkMovement(move)
