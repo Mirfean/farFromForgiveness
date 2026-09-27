@@ -5,6 +5,7 @@ const directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 # Tile for show possible movement
 const SOURCE_ID = 0
 const movement_highlight_tile = Vector2i(9, 9) 
+const movement_path_tile = Vector2i(8,9)
 
 signal MoveCurrentMinion(Vector2i)
 
@@ -76,6 +77,8 @@ func checkMovement(move: Vector2i):
 	for x in len(movement_path):
 		if movement_path[x][0] == target_cell:
 			current_minion_remaining_movement = movement_path[x][1]
+			for y in range(x, len(movement_path)):
+				clean_path_cell(movement_path[y][0], true)
 			movement_path.resize(x+1)
 			MoveCurrentMinion.emit(move)
 			return
@@ -86,6 +89,7 @@ func checkMovement(move: Vector2i):
 		if current_minion_remaining_movement >= move_cost:
 			print_debug("You can move here!")
 			movement_path.append([current_cell, current_minion_remaining_movement])
+			draw_path()
 			current_minion_remaining_movement -= move_cost
 			MoveCurrentMinion.emit(move)
 		else:
@@ -96,4 +100,18 @@ func checkMovement(move: Vector2i):
 func cleaner():
 	current_minion = null
 	current_minion_remaining_movement = 0
+	
+	for x in movement_path:
+		clean_path_cell(x[0])
 	movement_path.clear()
+	
+func draw_path():
+	for tile in movement_path:
+		mapManager.tilemap_ui.set_cell(tile[0], 0, movement_path_tile)
+	
+func clean_path_cell(cell: Vector2i, restore_highlight: bool = false):
+	if restore_highlight:
+		mapManager.tilemap_ui.set_cell(cell, 0, movement_highlight_tile)
+	else:
+		mapManager.tilemap_ui.erase_cell(cell)
+	
