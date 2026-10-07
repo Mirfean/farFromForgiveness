@@ -104,6 +104,7 @@ func cleaner():
 	for x in movement_path:
 		clean_path_cell(x[0])
 	movement_path.clear()
+	mapManager.tilemap_ui.clear()
 	
 func draw_path():
 	for tile in movement_path:

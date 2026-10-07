@@ -14,7 +14,7 @@ enum battle_phase {
 
 var current_phase: battle_phase = battle_phase.player
 
-var current_minion: Node2D = null #Dodać później wspólnego parenta dla wszystkich ludków
+var current_minion: Ludzik_gracza = null #Dodać później wspólnego parenta dla wszystkich ludków
 var current_target: Node
 
 var selection_index: int = 0
@@ -211,3 +211,19 @@ func update_grid_pos_for_selection():
 		if indexik >= 0:
 			selectable_minions[indexik].grid_position.x = key.x
 			selectable_minions[indexik].grid_position.y = key.y
+
+func get_targetable():
+	# TODO Wziąć od gracza zasięg broni
+	var weapon_range = current_minion.stats.weapon_stats.range
+	var weapon_min_range = current_minion.stats.weapon_stats.min_range
+	# TODO Zgarnąć wszystkie pola wokół do tego zasięgu (ogarnąć czy przy range broni zabrać zasięg 1 itd)
+	var reachable_cells = calculate_reachable_cells(weapon_range, weapon_min_range)
+	# TODO Sprawdzić czy na polach są ściany albo goście co blokują atak za nimi(i jakoś to policzyć powodzenia dla mnie xD)
+	# TODO wysłać listę wszystkich dostępnych pól albo stąd je brać? Nie jestem jeszcze pewien
+	pass
+
+func calculate_reachable_cells(range: int, min_range: int) -> PackedVector2Array:
+	var result = PackedVector2Array()
+	
+	
+	return result

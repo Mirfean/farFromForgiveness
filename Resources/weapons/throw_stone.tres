@@ -6,4 +6,5 @@
 script = ExtResource("1_n0ofl")
 damage = 1
 range = 3
+min_range = 1
 penetration = 1

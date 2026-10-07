@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_sp60s")
 hp = 5
-movement = 6
+movement = 4
+additional_movement = 1
 attack = 1
-speed = 3
 weapon = ExtResource("2_7gg0m")
 metadata/_custom_type_script = "uid://cahiu86ipoto8"

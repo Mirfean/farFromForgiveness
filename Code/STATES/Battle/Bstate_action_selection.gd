@@ -25,6 +25,5 @@ func InputState(event: InputEvent):
 		Transitioned.emit(self, "BState_movement")
 
 func Exit():
-	print_debug("Siemano kolano")
 	action_menu.visible = false
 	#unpin character from action_menu

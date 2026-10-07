@@ -12,7 +12,6 @@ const inputs = {
 
 @onready var debug_text: RichTextLabel = $DebugText
 
-
 @export var raycast: RayCast2D
 @export var stats: character_stats
 @export var r_stats: r_character_stats

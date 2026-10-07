@@ -12,7 +12,7 @@ var map_size: Vector2i
 
 func _ready() -> void:
 	astargrid = AStarGrid2D.new()
-	
+	#print(astargrid.get_id_path(Vector2i(0, 0), Vector2i(0, 3)))
 	#TODO move it later to resource loader for map
 	map_size = Vector2i(256, 256)
 	astargrid.region = Rect2i(grid_start.x, grid_start.y, map_size.x, map_size.y)
