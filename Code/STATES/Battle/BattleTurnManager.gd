@@ -94,7 +94,7 @@ func refresh_enemy_minions() -> void:
 
 func cleaner():
 	current_minion = null
-	current_target = null
+	current_target = Vector2i.ZERO
 	movementManager.cleaner()
 	selection_index = 0
 
