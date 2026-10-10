@@ -15,7 +15,7 @@ enum battle_phase {
 var current_phase: battle_phase = battle_phase.player
 
 var current_minion: Ludzik_gracza = null #Dodać później wspólnego parenta dla wszystkich ludków
-var current_target: Node
+var current_target: Vector2i
 
 var selection_index: int = 0
 
@@ -165,9 +165,9 @@ func move_minion(move: Vector2i):
 func stop_move_minion():
 	print("stop moving minion")
 
-func on_target_selected(target: Node) -> void:
+func on_target_selected(target: Vector2i) -> void:
 	#Przekazanie pola z grida bo można by atakować też puste pola by zastawiać pułapki itd
-	pass
+	current_target = target
 
 func minion_attack() -> void:
 	current_minion.used_this_turn = true
@@ -184,8 +184,10 @@ func finish_action() -> void:
 func on_action_selected(action: String) -> void:
 	if action == "move":
 		BattleStateMachine.get_state("Bstate_movement").Enter()
-	elif action == "attack":
-		BattleStateMachine.get_state("Bstate_player_choose_target").Enter()
+	elif action == "Attack":
+		#Brzydkie i bez sensu - do poprawy
+		var target_state: Bstate_player_choose_target = BattleStateMachine.get_state("Bstate_player_choose_target")
+		target_state.setup_targeting(mapManager, selectionModule, get_targetable())
 	#TODO add later
 	#elif action == "end_turn":
 		#BattleStateMachine.get_state("Bstate_player_end").Enter()
@@ -212,18 +214,25 @@ func update_grid_pos_for_selection():
 			selectable_minions[indexik].grid_position.x = key.x
 			selectable_minions[indexik].grid_position.y = key.y
 
-func get_targetable():
+func get_targetable() -> Array:
 	# TODO Wziąć od gracza zasięg broni
 	var weapon_range = current_minion.stats.weapon_stats.range
 	var weapon_min_range = current_minion.stats.weapon_stats.min_range
 	# TODO Zgarnąć wszystkie pola wokół do tego zasięgu (ogarnąć czy przy range broni zabrać zasięg 1 itd)
-	var reachable_cells = calculate_reachable_cells(weapon_range, weapon_min_range)
+	var reachable_cells = calculate_reachable_cells(current_minion.grid_position, weapon_range, weapon_min_range)
 	# TODO Sprawdzić czy na polach są ściany albo goście co blokują atak za nimi(i jakoś to policzyć powodzenia dla mnie xD)
 	# TODO wysłać listę wszystkich dostępnych pól albo stąd je brać? Nie jestem jeszcze pewien
-	pass
+	print(reachable_cells)
+	mapManager.draw_targeting_range(reachable_cells)
+	return reachable_cells
 
-func calculate_reachable_cells(range: int, min_range: int) -> PackedVector2Array:
-	var result = PackedVector2Array()
-	
-	
-	return result
+func calculate_reachable_cells(minion_pos: Vector2i, max_range: int, min_range: int) -> Array[Vector2i]:
+	var result = {}
+	for x in range(-max_range, max_range+1):
+		for y in range(-max_range, max_range+1):
+			if x==0 and y==0:
+				continue
+			var distance = abs(x) + abs(y)
+			if distance >= min_range and distance <= max_range:
+				result[Vector2i(minion_pos.x+x,minion_pos.y+y)] = true
+	return result.keys() as Array[Vector2i]

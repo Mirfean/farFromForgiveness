@@ -10,6 +10,8 @@ var astargrid: AStarGrid2D
 @export var tilemap_ui: TileMapLayer
 var map_size: Vector2i
 
+var target_highlight = Vector2i(8,9)
+
 func _ready() -> void:
 	astargrid = AStarGrid2D.new()
 	#print(astargrid.get_id_path(Vector2i(0, 0), Vector2i(0, 3)))
@@ -62,14 +64,16 @@ func setup_grid_from_tilemap():
 			elif move_cost > 0:
 				astargrid.set_point_weight_scale(cell, move_cost)
 
-func calculate_grid_position(pos: Vector2) -> Vector2i:
-	return main_tilemap.local_to_map(main_tilemap.to_local(pos))
+func calculate_grid_position(map: TileMapLayer, pos: Vector2) -> Vector2i:
+	return map.local_to_map(map.to_local(pos))
 
 func set_grid_positions(list: Array) -> Dictionary:
 	var result = {}
 	for minion in list:
-		result[calculate_grid_position(minion.global_position)] = minion
+		result[calculate_grid_position(main_tilemap, minion.global_position)] = minion
 	return result
 	
-	
-	
+func draw_targeting_range(cells: Array):
+	tilemap_ui.clear()
+	for cell in cells:
+		tilemap_ui.set_cell(Vector2i(cell.x,cell.y), 0, target_highlight)

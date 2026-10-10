@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dhlhm0vp68fwn" path="res://Code/Ludzik_gracza.gd" id="1_dpjj4"]
 [ext_resource type="Script" uid="uid://51rlyg3krpis" path="res://Code/character_stats.gd" id="2_b46ru"]
 [ext_resource type="Resource" uid="uid://vjnqeo1x5q4u" path="res://Resources/Characters Stats/demo_player.tres" id="2_dm3j1"]
+[ext_resource type="Script" uid="uid://cxhn8iut76n1y" path="res://Code/weapon_info.gd" id="4_8rfs0"]
 [ext_resource type="FontFile" uid="uid://c2a2akkh6f3gp" path="res://tiny4px.ttf" id="5_tdlac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dpjj4"]
@@ -71,8 +72,12 @@ stats = NodePath("Stats")
 r_stats = ExtResource("2_dm3j1")
 movement = 3
 
-[node name="Stats" type="Node2D" parent="." unique_id=11161886 groups=["Player", "Player_char"]]
+[node name="Stats" type="Node2D" parent="." unique_id=11161886 node_paths=PackedStringArray("weapon_stats") groups=["Player", "Player_char"]]
 script = ExtResource("2_b46ru")
+weapon_stats = NodePath("WeaponINFO")
+
+[node name="WeaponINFO" type="Node" parent="Stats" unique_id=1950940576]
+script = ExtResource("4_8rfs0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1771450717]
 texture_filter = 1
