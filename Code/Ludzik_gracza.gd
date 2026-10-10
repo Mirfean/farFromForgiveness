@@ -22,7 +22,7 @@ const inputs = {
 
 func _ready() -> void:
 	stats.load_resource(r_stats)
-	debug_text.text = self.name
+	debug_text.text = "%s/%s" % [stats.hp, stats.max_hp]
 	#TODO DODAĆ STARTOWĄ WARTOŚĆ
 
 #func _unhandled_input(event: InputEvent) -> void:
@@ -49,3 +49,11 @@ func setup_grid_position(pos: Vector2i):
 func update_grid_position(move: Vector2i):
 	grid_position.x += move.x
 	grid_position.y += move.y
+
+func modify_hp(value: int):
+	#TODO dodać tu później armor
+	stats.hp = clamp(stats.hp + value, 0, stats.max_hp)
+	debug_text.text = "%s/%s" % [stats.hp, stats.max_hp]
+	#TODO jakiś tutaj overheal można dać jeśli postać będzie miała taki perk/klasę
+	if stats.hp == 0:
+		print_debug("hehe, dead")

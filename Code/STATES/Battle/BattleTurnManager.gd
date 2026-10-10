@@ -10,12 +10,15 @@ enum battle_phase {
 @export var BattleStateMachine: State_Factory_Battle
 @export var movementManager: MovementManager
 @export var mapManager: MapManager
+@export var attackManager: BattleAttackManager
 @export var selectionModule: selection_module
 
 var current_phase: battle_phase = battle_phase.player
 
-var current_minion: Ludzik_gracza = null #Dodać później wspólnego parenta dla wszystkich ludków
-var current_target: Vector2i
+var current_minion: Ludzik_gracza = null #TODO Dodać później wspólnego parenta dla wszystkich ludków
+
+var current_target_position: Vector2i
+var current_target: Ludzik_gracza #TODO Ta, tutaj też zmienic
 
 var selection_index: int = 0
 
@@ -58,9 +61,12 @@ func connect_state_signals() -> void:
 		choose_action_state.action_selected.connect(on_action_selected)
 
 	var choose_target_state = BattleStateMachine.get_state("Bstate_player_choose_target")
-	if choose_target_state and choose_target_state.has_signal("target_selected"):
-		choose_target_state.target_selected.connect(on_target_selected)
-	
+	if choose_target_state: 
+		if choose_target_state.has_signal("target_selected"):
+			choose_target_state.target_selected.connect(on_target_selected)
+		if choose_target_state.has_signal("show_targets"):
+			choose_target_state.show_targets.connect(show_targetable)
+				
 	var attack_state = BattleStateMachine.get_state("Bstate_attack")
 	if attack_state and attack_state.has_signal("attack_performed"):
 		attack_state.attack_performed.connect(minion_attack)
@@ -94,7 +100,7 @@ func refresh_enemy_minions() -> void:
 
 func cleaner():
 	current_minion = null
-	current_target = Vector2i.ZERO
+	current_target_position = Vector2i(-4444,-5555)
 	movementManager.cleaner()
 	selection_index = 0
 
@@ -167,11 +173,14 @@ func stop_move_minion():
 
 func on_target_selected(target: Vector2i) -> void:
 	#Przekazanie pola z grida bo można by atakować też puste pola by zastawiać pułapki itd
-	current_target = target
-
+	current_target_position = target
+	var target_object = check_minion_on_position(current_target_position)
+	if target_object:
+		current_target = target_object
+		
 func minion_attack() -> void:
 	current_minion.used_this_turn = true
-	#TODO make attack current minion -> current_target
+	attackManager.perform_attack(current_minion, "", current_target)
 
 func finish_action() -> void:
 	if selectable_minions.has(current_minion):
@@ -186,11 +195,17 @@ func on_action_selected(action: String) -> void:
 		BattleStateMachine.get_state("Bstate_movement").Enter()
 	elif action == "Attack":
 		#Brzydkie i bez sensu - do poprawy
-		var target_state: Bstate_player_choose_target = BattleStateMachine.get_state("Bstate_player_choose_target")
-		target_state.setup_targeting(mapManager, selectionModule, get_targetable())
+		print("Attack start")
 	#TODO add later
 	#elif action == "end_turn":
 		#BattleStateMachine.get_state("Bstate_player_end").Enter()
+
+func clear_targetable():
+	mapManager.tilemap_ui.clear()
+
+func show_targetable():
+	var target_state: Bstate_player_choose_target = BattleStateMachine.get_state("Bstate_player_choose_target")
+	target_state.setup_targeting(mapManager, selectionModule, get_targetable())
 
 func on_battle_started() -> void:
 	#TODO Dodać logikę startu bitwy
@@ -236,3 +251,12 @@ func calculate_reachable_cells(minion_pos: Vector2i, max_range: int, min_range: 
 			if distance >= min_range and distance <= max_range:
 				result[Vector2i(minion_pos.x+x,minion_pos.y+y)] = true
 	return result.keys() as Array[Vector2i]
+
+func check_minion_on_position(position: Vector2i) -> Ludzik_gracza:
+	for p_minion in player_minions:
+		if p_minion.grid_position == position:
+			return p_minion
+	for e_minion in enemy_minions:
+		if e_minion.grid_position == position:
+			return e_minion
+	return null

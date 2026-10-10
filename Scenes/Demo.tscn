@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://pq6xsrip8iko" path="res://Code/BattleActionManager.gd" id="3_v3boh"]
 [ext_resource type="Script" uid="uid://8uxtocbq48wh" path="res://Code/map_manager.gd" id="3_ymvx6"]
 [ext_resource type="PackedScene" uid="uid://b3701tbl7h5pl" path="res://Scenes/movement_info.tscn" id="4_movement_info"]
+[ext_resource type="Script" uid="uid://ijunqqau2foc" path="res://Code/BattleAttackManager.gd" id="6_k27g2"]
 [ext_resource type="Script" uid="uid://dw5kgr7xwrjr5" path="res://Code/MovementManager.gd" id="8_ecetj"]
 [ext_resource type="Script" uid="uid://cykkm7y3kas2w" path="res://Code/selection_manager.gd" id="9_oilx1"]
 
@@ -44,17 +45,21 @@ script = ExtResource("3_ymvx6")
 main_tilemap = NodePath("../TileMapLayer")
 tilemap_ui = NodePath("../UI")
 
+[node name="AttackManager" type="Node" parent="." unique_id=1547271146]
+script = ExtResource("6_k27g2")
+
 [node name="MovementManager" type="Node" parent="." unique_id=949361381 node_paths=PackedStringArray("mapManager") groups=["MovementManager"]]
 script = ExtResource("8_ecetj")
 mapManager = NodePath("../MapManager")
 
 [node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
 
-[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "selectionModule", "PlayerContainer", "EnemyContainer")]
+[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "attackManager", "selectionModule", "PlayerContainer", "EnemyContainer")]
 script = ExtResource("1_fnnck")
 BattleStateMachine = NodePath("../BattleStateMachine")
 movementManager = NodePath("../MovementManager")
 mapManager = NodePath("../MapManager")
+attackManager = NodePath("../AttackManager")
 selectionModule = NodePath("../SelectionManager")
 PlayerContainer = NodePath("../PlayerMinions")
 EnemyContainer = NodePath("../EnemyMinions")
@@ -93,19 +98,19 @@ zoom = Vector2(3.015, 3.015)
 
 [node name="PlayerMinions" type="Node" parent="." unique_id=919215767]
 
-[node name="Ludzik_gracza" parent="PlayerMinions" unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+[node name="Lg1" parent="PlayerMinions" unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 
-[node name="Ludzik_gracza2" parent="PlayerMinions" unique_id=2103453396 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+[node name="Lg2" parent="PlayerMinions" unique_id=2103453396 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(-16, -32)
 movement = 5
 
-[node name="Ludzik_gracza3" parent="PlayerMinions" unique_id=1034769860 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+[node name="Lg3" parent="PlayerMinions" unique_id=1034769860 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(32, -48)
 
-[node name="Ludzik_gracza4" parent="PlayerMinions" unique_id=1719327652 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+[node name="Lg4" parent="PlayerMinions" unique_id=1719327652 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(64, -16)
 
-[node name="Ludzik_gracza5" parent="PlayerMinions" unique_id=1758236086 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+[node name="Lg5" parent="PlayerMinions" unique_id=1758236086 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(64, 48)
 
 [node name="EnemyMinions" type="Node" parent="." unique_id=1255838348]

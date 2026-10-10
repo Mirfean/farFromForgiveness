@@ -2,6 +2,7 @@ extends battle_state
 class_name Bstate_player_choose_target
 
 signal target_selected(target_cell: Vector2i)
+signal show_targets
 
 @export var select_module: selection_module
 
@@ -11,6 +12,7 @@ var current_selected: Vector2i
 
 func Enter():
 	print_debug("player choose target")
+	show_targets.emit()
 	if not valid_target_cells.is_empty():
 		select_module.start_selection()
 		move_selection_to_cell(current_selected)
@@ -74,10 +76,11 @@ func move_to_target(direction: Vector2i) -> void:
 
 func move_selection_to_cell(cell: Vector2i) -> void:
 	var local_position = map_manager.main_tilemap.map_to_local(cell)
-	select_module.move_box(map_manager.main_tilemap.to_global(Vector2(local_position.x-8, local_position.y-8)))
+	select_module.move_box(map_manager.main_tilemap.to_global(Vector2(local_position.x-8, local_position.y-8))) #TODO Poprawić to jakoś później xD
 
 func perform_attack() -> void:
-	print(current_selected)
+	var message = "Attack to %s" % current_selected
+	print(message)
 	target_selected.emit(current_selected)
 	Transitioned.emit(self, "Bstate_attack")
 
