@@ -16,14 +16,23 @@ const inputs = {
 @export var stats: character_stats
 @export var r_stats: r_character_stats
 
+@export var equipment: Array[BattleItem]
+
 @export var movement: int
 
 @export var grid_position: Vector2i
 
 func _ready() -> void:
 	stats.load_resource(r_stats)
+	prepare_eq()
 	debug_text.text = "%s/%s" % [stats.hp, stats.max_hp]
 	#TODO DODAĆ STARTOWĄ WARTOŚĆ
+
+func prepare_eq():
+	for r_item in r_stats.items:
+		var item := BattleItem.new()
+		item.set_item(r_item)
+		equipment.append(item)
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	if active:

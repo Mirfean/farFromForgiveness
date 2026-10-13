@@ -21,7 +21,7 @@ GLOBAL="*uid://dtmvli188rur"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [global_group]

@@ -10,3 +10,4 @@ class_name r_character_stats
 
 @export var character_class: int #To change later
 @export var weapon: r_weapon
+@export var items: Array[r_BattleItem]

@@ -7,9 +7,11 @@
 [ext_resource type="Script" uid="uid://dtpmgor71mhpc" path="res://Code/STATES/Battle/Bstate_player_choose_minion.gd" id="2_yrjsm"]
 [ext_resource type="Script" uid="uid://dlrw2bgn67574" path="res://Code/STATES/Battle/Bstate_movement.gd" id="3_wsdno"]
 [ext_resource type="Script" uid="uid://bekcjhicvives" path="res://Code/STATES/Battle/Bstate_player_choose_attack.gd" id="5_7cr5u"]
+[ext_resource type="Script" uid="uid://cniwlcfghn7di" path="res://Code/STATES/Battle/Bstate_player_choose_item.gd" id="7_7cr5u"]
 [ext_resource type="Script" uid="uid://8oh4kql4t3sj" path="res://Code/STATES/Battle/Bstate_player_end_action.gd" id="7_f700d"]
 [ext_resource type="Script" uid="uid://r8fwhjc1c34o" path="res://Code/STATES/Battle/Bstate_player_choose_target.gd" id="7_wsdno"]
 [ext_resource type="Script" uid="uid://cl2l0gkt6oueh" path="res://Code/STATES/Battle/Bstate_player_end_turn.gd" id="8_8vd7r"]
+[ext_resource type="Script" uid="uid://didabe050nrvb" path="res://Code/STATES/Battle/Bstate_player_choose_defend.gd" id="8_f700d"]
 
 [node name="BattleStateMachine" type="Node" unique_id=1425635360 node_paths=PackedStringArray("current_state")]
 script = ExtResource("1_yrjsm")
@@ -29,6 +31,12 @@ script = ExtResource("1_se2t2")
 
 [node name="Bstate_player_choose_attack" type="Node" parent="." unique_id=596700942]
 script = ExtResource("5_7cr5u")
+
+[node name="Bstate_player_choose_item" type="Node" parent="." unique_id=617090760]
+script = ExtResource("7_7cr5u")
+
+[node name="Bstate_player_choose_defend" type="Node" parent="." unique_id=1487485543]
+script = ExtResource("8_f700d")
 
 [node name="Bstate_player_choose_target" type="Node" parent="." unique_id=566733828]
 script = ExtResource("7_wsdno")

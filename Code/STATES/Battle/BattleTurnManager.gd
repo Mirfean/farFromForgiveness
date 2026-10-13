@@ -2,9 +2,11 @@ extends Node
 class_name BattleTurnManager
 
 enum battle_phase {
+	start,
 	player,
 	enemy,
-	neutral
+	neutral,
+	end
 }
 
 @export var BattleStateMachine: State_Factory_Battle
@@ -233,10 +235,7 @@ func get_targetable() -> Array:
 	# TODO Wziąć od gracza zasięg broni
 	var weapon_range = current_minion.stats.weapon_stats.range
 	var weapon_min_range = current_minion.stats.weapon_stats.min_range
-	# TODO Zgarnąć wszystkie pola wokół do tego zasięgu (ogarnąć czy przy range broni zabrać zasięg 1 itd)
 	var reachable_cells = calculate_reachable_cells(current_minion.grid_position, weapon_range, weapon_min_range)
-	# TODO Sprawdzić czy na polach są ściany albo goście co blokują atak za nimi(i jakoś to policzyć powodzenia dla mnie xD)
-	# TODO wysłać listę wszystkich dostępnych pól albo stąd je brać? Nie jestem jeszcze pewien
 	print(reachable_cells)
 	mapManager.draw_targeting_range(reachable_cells)
 	return reachable_cells

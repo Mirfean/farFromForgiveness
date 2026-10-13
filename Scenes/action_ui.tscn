@@ -1,16 +1,21 @@
 [gd_scene format=3 uid="uid://cckiemoefh4fw"]
 
+[ext_resource type="Script" uid="uid://24rd8s7ioqdk" path="res://Scenes/action_ui.gd" id="1_i8fy4"]
 [ext_resource type="Texture2D" uid="uid://cm5t6cpddou63" path="res://Sprites/UI/attack_button.png" id="1_w7onk"]
 [ext_resource type="Texture2D" uid="uid://i1lif70fpxw0" path="res://Sprites/UI/use_item_button.png" id="2_i8fy4"]
 [ext_resource type="Texture2D" uid="uid://wowcbywv8utm" path="res://Sprites/UI/defend_button.png" id="3_sfy5p"]
 
-[node name="ActionUI" type="Control" unique_id=778715002 groups=["ActionMenu"]]
+[node name="ActionUI" type="Control" unique_id=778715002 node_paths=PackedStringArray("button_attack", "button_item", "button_defend") groups=["ActionMenu"]]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 16.0
 offset_top = 80.0
 offset_right = 180.0
 offset_bottom = 260.0
+script = ExtResource("1_i8fy4")
+button_attack = NodePath("PanelContainer/VBoxContainer/Attack")
+button_item = NodePath("PanelContainer/VBoxContainer/Use item")
+button_defend = NodePath("PanelContainer/VBoxContainer/Defend")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1805052115]
 layout_mode = 1
@@ -34,3 +39,7 @@ texture_normal = ExtResource("2_i8fy4")
 [node name="Defend" type="TextureButton" parent="PanelContainer/VBoxContainer" unique_id=1747631863]
 layout_mode = 2
 texture_normal = ExtResource("3_sfy5p")
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Use item" to="." method="_on_use_item_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Defend" to="." method="_on_defend_pressed"]

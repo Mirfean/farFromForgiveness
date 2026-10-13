@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="r_BattleItem" format=3 uid="uid://bqbkci6urpis8"]
+
+[ext_resource type="Script" uid="uid://enxurtse0k1m" path="res://Code/resources/r_BattleItem.gd" id="1_f5wns"]
+[ext_resource type="Texture2D" uid="uid://dr6k5tu6clen2" path="res://Sprites/potek.png" id="2_85366"]
+
+[resource]
+script = ExtResource("1_f5wns")
+sprite = ExtResource("2_85366")
+id = "001"
+name_ = "Heal Potion"
+description = "Malinowy"
+tag = Array[int]([0])
+max_usages = 3
+metadata/_custom_type_script = "uid://enxurtse0k1m"

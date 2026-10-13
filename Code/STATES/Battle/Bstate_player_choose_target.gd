@@ -32,15 +32,6 @@ func InputState(event: InputEvent)-> void:
 			current_selected = mouse_cell
 			perform_attack()
 		return
-
-	if event.is_action_pressed("move_up"):
-		move_to_target(Vector2i(GLOBAL.move_inputs["move_up"]))
-	if event.is_action_pressed("move_down"):
-		move_to_target(Vector2i(GLOBAL.move_inputs["move_down"]))
-	if event.is_action_pressed("move_left"):
-		move_to_target(Vector2i(GLOBAL.move_inputs["move_left"]))
-	if event.is_action_pressed("move_right"):
-		move_to_target(Vector2i(GLOBAL.move_inputs["move_right"]))
 	if event.is_action_pressed("back"):
 		Transitioned.emit(self, "Bstate_player_choose_attack")
 	if event.is_action_pressed("confirm"):
@@ -87,3 +78,4 @@ func perform_attack() -> void:
 func Exit():
 	if select_module:
 		select_module.stop_selection()
+ 
