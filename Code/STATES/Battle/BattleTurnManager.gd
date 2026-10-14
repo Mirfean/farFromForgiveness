@@ -159,11 +159,15 @@ func on_minion_selected(id: int) -> void:
 	selectionModule.stop_selection()
 
 func revert_selection():
-	#TODO Cofnij miniona do startowego miejsca
+	movementManager.revertMovement()
+	movementManager.cleaner()
 	current_minion = null
 	selectionModule.start_selection()
 	
 func start_move_minion():
+	if current_minion == movementManager.current_minion:
+		print_debug("Some backing?")
+		return
 	movementManager.setup_new_minion(current_minion)
 	movementManager.highlight_movement_range(current_minion.grid_position, current_minion.movement)
 

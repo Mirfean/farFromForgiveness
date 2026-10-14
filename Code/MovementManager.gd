@@ -12,6 +12,7 @@ signal MoveCurrentMinion(Vector2i)
 @export var mapManager: MapManager
 
 var current_minion: Ludzik_gracza
+var starting_cell: Vector2i
 var movement_path: Array
 var current_minion_remaining_movement: int
 
@@ -58,7 +59,11 @@ func highlight_movement_range(start_cell: Vector2i, movement_points: int):
 		mapManager.tilemap_ui.set_cell(cell, SOURCE_ID, movement_highlight_tile)
 		
 func setup_new_minion(minion: Ludzik_gracza):
+	if current_minion == minion:
+		print_debug("Ten sam gość?!")
+		return
 	current_minion = minion
+	starting_cell = minion.grid_position
 	current_minion_remaining_movement = minion.movement
 	movement_path.clear()
 
@@ -109,10 +114,13 @@ func cleaner():
 func draw_path():
 	for tile in movement_path:
 		mapManager.tilemap_ui.set_cell(tile[0], 0, movement_path_tile)
-	
+
 func clean_path_cell(cell: Vector2i, restore_highlight: bool = false):
 	if restore_highlight:
 		mapManager.tilemap_ui.set_cell(cell, 0, movement_highlight_tile)
 	else:
 		mapManager.tilemap_ui.erase_cell(cell)
+	
+func revertMovement():
+	current_minion.teleport(starting_cell)
 	

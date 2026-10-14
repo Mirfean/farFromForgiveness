@@ -12,4 +12,4 @@ enum ActionType # Dodać więcej później
 var CurrentAction: ActionType
 
 func setCurrentAction(value: int):
-	CurrentAction = value
+	CurrentAction = value as ActionType

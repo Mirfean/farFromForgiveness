@@ -121,4 +121,4 @@ position = Vector2(-32, 16)
 
 [node name="NeutralMinions" type="Node" parent="." unique_id=174572424]
 
-[node name="ItemsSelectWindow" parent="." unique_id=2016971652 instance=ExtResource("15_6aqh6")]
+[node name="ItemsSelectWindow" parent="." unique_id=2016971652 groups=["ItemsWindow"] instance=ExtResource("15_6aqh6")]

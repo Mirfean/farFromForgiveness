@@ -59,6 +59,10 @@ func update_grid_position(move: Vector2i):
 	grid_position.x += move.x
 	grid_position.y += move.y
 
+func teleport(pos: Vector2i):
+	setup_grid_position(pos)
+	global_position = Vector2(pos) * GLOBAL.grid_size
+
 func modify_hp(value: int):
 	#TODO dodać tu później armor
 	stats.hp = clamp(stats.hp + value, 0, stats.max_hp)

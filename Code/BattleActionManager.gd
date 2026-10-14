@@ -6,7 +6,8 @@ enum ActionType # Dodać więcej później
 	NONE = -1, # Default akcja, ma do niej wracać po resecie/zmianie. Przy akcjach jeśli to jest ta, ignor i debug info dać
 	ATTACK = 1,
 	ITEM = 2,
-	DEFEND = 3
+	DEFEND = 3,
+	INTERACT = 4
 }	
 
 signal ActionSelected(ActionType)
@@ -14,4 +15,4 @@ signal ActionSelected(ActionType)
 var CurrentAction: ActionType
 
 func setCurrentAction(value: int):
-	CurrentAction = value
+	CurrentAction = value as ActionType

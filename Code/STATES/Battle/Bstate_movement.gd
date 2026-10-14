@@ -5,6 +5,7 @@ var movementManager: MovementManager
 
 var remainingMovement: int
 
+
 signal startMovement
 signal revertMovement
 signal confirmMovement
