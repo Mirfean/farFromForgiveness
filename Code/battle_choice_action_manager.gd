@@ -1,3 +1,4 @@
+@icon ("res://addons/at-icons/node/bunny.svg")
 extends Node
 class_name BattleChoiceActionManager
 

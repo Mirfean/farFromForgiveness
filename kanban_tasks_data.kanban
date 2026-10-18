@@ -1,0 +1,110 @@
+{
+	"categories": [
+		{
+			"uuid": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"title": "Task",
+			"color": "569eff"
+		},
+		{
+			"uuid": "6bf3480f-d2ad-42a8-b8e9-513d72958572",
+			"title": "BUG",
+			"color": "d749be"
+		},
+		{
+			"uuid": "8bce55f6-3526-4b0d-ab22-030f2ec971eb",
+			"title": "Idea",
+			"color": "190fc1"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "c1de8526-5574-4bf7-bad7-6daadc813d22",
+			"title": "Todo",
+			"tasks": [
+				"9de21d8f-592f-412f-a876-6e02da007733",
+				"676dc000-d0cf-4b8d-b46d-3a8b8aa0096d",
+				"664b5589-01ec-4d57-9e27-b28b853b73b3"
+			]
+		},
+		{
+			"uuid": "f1da6c74-909d-4143-ada3-563c45355aaa",
+			"title": "Doing",
+			"tasks": [
+				"ad0aab0d-df3a-485e-9ce6-d3e5cee2be04",
+				"07b0e460-6c9c-44a5-98b1-b933872f0b1f",
+				"3a507f46-b268-452f-9744-5b9423d3b3fc"
+			]
+		},
+		{
+			"uuid": "9a693c58-9147-4f8e-bc5e-cfc1909275ba",
+			"title": "Done",
+			"tasks": [
+				"359d9b27-c821-41ea-8f26-dfe10506b128"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "9de21d8f-592f-412f-a876-6e02da007733",
+			"title": "Wchodzenie w swojego kolege",
+			"description": "Jak robisz movement to zabiera ci go jeśli próbujesz wejść w pole z twoim kolegom ale tam nie wchodzisz bo cię blokuje.",
+			"category": "6bf3480f-d2ad-42a8-b8e9-513d72958572",
+			"steps": []
+		},
+		{
+			"uuid": "ad0aab0d-df3a-485e-9ce6-d3e5cee2be04",
+			"title": "Transport item info to item selection",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "676dc000-d0cf-4b8d-b46d-3a8b8aa0096d",
+			"title": "BattleItems(fight_prep) -> Ludzik(fight)",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "359d9b27-c821-41ea-8f26-dfe10506b128",
+			"title": "Items in Ludzik",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "07b0e460-6c9c-44a5-98b1-b933872f0b1f",
+			"title": "Send selected to ActionManager?",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "664b5589-01ec-4d57-9e27-b28b853b73b3",
+			"title": "Przechodzenie przez kolegów",
+			"description": "",
+			"category": "8bce55f6-3526-4b0d-ab22-030f2ec971eb",
+			"steps": []
+		},
+		{
+			"uuid": "3a507f46-b268-452f-9744-5b9423d3b3fc",
+			"title": "XXXManager gets used item id and?",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"c1de8526-5574-4bf7-bad7-6daadc813d22"
+			],
+			[
+				"f1da6c74-909d-4143-ada3-563c45355aaa"
+			],
+			[
+				"9a693c58-9147-4f8e-bc5e-cfc1909275ba"
+			]
+		]
+	}
+}

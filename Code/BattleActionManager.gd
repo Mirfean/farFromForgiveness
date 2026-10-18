@@ -7,7 +7,9 @@ enum ActionType # Dodać więcej później
 	ATTACK = 1,
 	ITEM = 2,
 	DEFEND = 3,
-	INTERACT = 4
+	INTERACT = 4,
+	SPELL = 5,
+	SKIP_TURN = 6
 }	
 
 signal ActionSelected(ActionType)
@@ -16,3 +18,7 @@ var CurrentAction: ActionType
 
 func setCurrentAction(value: int):
 	CurrentAction = value as ActionType
+	
+
+#func ItemAction(minion, item):
+	

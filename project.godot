@@ -24,6 +24,10 @@ GLOBAL="*uid://dtmvli188rur"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/at-icons/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
+
 [global_group]
 
 Player_char="Player's minion"

@@ -23,6 +23,9 @@ item_grid = NodePath("Window/MarginContainer/ItemGrid")
 oversampling_override = 1.0
 position = Vector2i(0, 36)
 size = Vector2i(300, 220)
+unresizable = true
+minimize_disabled = true
+maximize_disabled = true
 min_size = Vector2i(300, 220)
 
 [node name="MarginContainer" type="MarginContainer" parent="Window" unique_id=88784779]
@@ -83,3 +86,6 @@ layout_mode = 2
 texture_normal = ExtResource("1_umsoe")
 ignore_texture_size = true
 stretch_mode = 5
+
+[connection signal="about_to_popup" from="Window" to="." method="_on_window_about_to_popup"]
+[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]

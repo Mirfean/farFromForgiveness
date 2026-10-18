@@ -9,11 +9,9 @@ signal item_chosen
 func _ready() -> void:
 	itemWindow = get_tree().get_first_node_in_group("ItemsWindow")
 	itemWindow.item_selected.connect(item_selected)
-	itemWindow.selection_window.hide()
 
 func Enter():
 	print("There should be a menu to choose item :>")
-	itemWindow.selection_window.show()
 	Transitioned.emit(self, "Bstate_player_choose_target")
 
 func item_selected(id: int):

@@ -70,3 +70,8 @@ func modify_hp(value: int):
 	#TODO jakiś tutaj overheal można dać jeśli postać będzie miała taki perk/klasę
 	if stats.hp == 0:
 		print_debug("hehe, dead")
+		
+func use_item(id: int):
+	if not equipment[id].use():
+		equipment.remove_at(id)
+	

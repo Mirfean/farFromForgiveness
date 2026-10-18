@@ -26,6 +26,21 @@ offset_bottom = 103.729996
 theme_override_font_sizes/normal_font_size = 8
 text = "Siemano"
 
+[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "attackManager", "selectionModule", "ActionManager", "PlayerContainer", "EnemyContainer")]
+script = ExtResource("1_fnnck")
+BattleStateMachine = NodePath("../BattleStateMachine")
+movementManager = NodePath("../MovementManager")
+mapManager = NodePath("../MapManager")
+attackManager = NodePath("../AttackManager")
+selectionModule = NodePath("../SelectionManager")
+ActionManager = NodePath("../BattleActionManager")
+PlayerContainer = NodePath("../PlayerMinions")
+EnemyContainer = NodePath("../EnemyMinions")
+metadata/_custom_type_script = "uid://cnnuxwpher8c1"
+
+[node name="BattleChoiceActionManager" type="Node" parent="." unique_id=546555146]
+script = ExtResource("3_h3puh")
+
 [node name="SelectionManager" type="Node" parent="." unique_id=1182601867 node_paths=PackedStringArray("selection_box")]
 script = ExtResource("9_oilx1")
 selection_box = NodePath("Sprite2D")
@@ -34,9 +49,6 @@ selection_box = NodePath("Sprite2D")
 texture = ExtResource("2_4i7ud")
 centered = false
 offset = Vector2(-2, -2)
-
-[node name="BattleChoiceActionManager" type="Node" parent="." unique_id=546555146]
-script = ExtResource("3_h3puh")
 
 [node name="BattleActionManager" type="Node" parent="." unique_id=1656010735]
 script = ExtResource("3_v3boh")
@@ -54,17 +66,6 @@ script = ExtResource("8_ecetj")
 mapManager = NodePath("../MapManager")
 
 [node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
-
-[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "attackManager", "selectionModule", "PlayerContainer", "EnemyContainer")]
-script = ExtResource("1_fnnck")
-BattleStateMachine = NodePath("../BattleStateMachine")
-movementManager = NodePath("../MovementManager")
-mapManager = NodePath("../MapManager")
-attackManager = NodePath("../AttackManager")
-selectionModule = NodePath("../SelectionManager")
-PlayerContainer = NodePath("../PlayerMinions")
-EnemyContainer = NodePath("../EnemyMinions")
-metadata/_custom_type_script = "uid://cnnuxwpher8c1"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAD//wAAAAABAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD+//7/AAABAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAABAP3/AAABAAQAAAACAP3/AAABAAQAAAADAP3/AAABAAQAAAAEAP3/AAABAAQAAAAEAP7/AAABAAQAAAAEAP//AAABAAQAAAAEAAAAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAABAAQAAAADAAIAAAABAAQAAAACAAMAAAABAAQAAAABAAMAAAABAAQAAAAAAAMAAAABAAQAAAAAAAIAAAABAAUAAAD//wIAAAABAAQAAAD+/wIAAAABAAQAAAD+/wEAAAABAAQAAAD/////AAABAAQAAAD+//3/AAABAAQAAAD+/wMAAAABAAQAAAD//wMAAAABAAQAAAADAAMAAAABAAQAAAAEAAMAAAABAAQAAAADAAEAAAABAAQAAAADAAAAAAABAAQAAAADAP//AAABAAQAAAACAP7/AAABAAQAAAABAP7/AAABAAQAAAAAAP7/AAABAAQAAAD//wEAAAABAAQAAAAAAAEAAAABAAQAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAACAAIAAAACAAQAAAACAAEAAAACAAQAAAACAAAAAAACAAQAAAABAAAAAAABAAQAAAABAP//AAACAAQAAAAAAP//AAACAAQAAAACAP//AAACAAQAAAADAP7/AAABAAQAAAD+//z/AAACAAQAAAD9//z/AAACAAQAAAD9//3/AAACAAQAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAACAAQAAAD+/wQAAAACAAQAAAD//wQAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAACAAQAAAACAAQAAAACAAQAAAADAAQAAAACAAQAAAAEAAQAAAACAAQAAAAFAAQAAAACAAQAAAAFAAMAAAACAAQAAAAFAAIAAAACAAQAAAAFAAEAAAACAAQAAAAFAAAAAAACAAQAAAAFAP//AAACAAQAAAAFAP7/AAACAAQAAAAFAP3/AAACAAQAAAD///z/AAACAAQAAAAAAPz/AAACAAQAAAABAPz/AAACAAQAAAACAPz/AAACAAQAAAADAPz/AAACAAQAAAAEAPz/AAACAAQAAAAFAPz/AAACAAQAAAA=")

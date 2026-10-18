@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/node_graph_root.svg")
 extends Node
 class_name BattleTurnManager
 
@@ -14,6 +15,7 @@ enum battle_phase {
 @export var mapManager: MapManager
 @export var attackManager: BattleAttackManager
 @export var selectionModule: selection_module
+@export var ActionManager: BattleActionManager
 
 var current_phase: battle_phase = battle_phase.player
 
@@ -197,13 +199,15 @@ func finish_action() -> void:
 	next_player_turn()
 
 func on_action_selected(action: String) -> void:
-	if action == "move":
-		BattleStateMachine.get_state("Bstate_movement").Enter()
-	elif action == "Attack":
-		#Brzydkie i bez sensu - do poprawy
-		print("Attack start")
-	#TODO add later
-	#elif action == "end_turn":
+	match action:
+		"MOVE":
+			BattleStateMachine.get_state("Bstate_movement").Enter()
+		"ATTACK":
+			print_debug("ATTACK")
+		"ITEM":
+			ActionManager
+		"END_TURN":
+			print("Koniec rundy")
 		#BattleStateMachine.get_state("Bstate_player_end").Enter()
 
 func clear_targetable():
