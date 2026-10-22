@@ -17,14 +17,24 @@ func _ready() -> void:
 	selection_window.close_requested.connect(selection_window.hide)
 	selection_window.hide()
 
-func open_items(items: Array[BattleItem]) -> void:
-	for index in range(0, MAX_ITEMS-1):
-		var button := item_grid.get_child(index) as TextureButton
-		var has_item = items[index]
-		button.visible = has_item
-		button.disabled = not has_item
-		button.texture_normal = items[index].sprite if has_item else null
+func open_items(items: Array[BattleItem]) -> bool:
+	if items.size() == 0:
+		return false
+	for index in range(0, MAX_ITEMS):
+		if items.size() - 1 >= index:
+			var button := item_grid.get_child(index) as TextureButton
+			var has_item = items[index]
+			button.visible = true
+			button.disabled = false
+			button.texture_normal = items[index].sprite
+		else:
+			var button := item_grid.get_child(index) as TextureButton
+			button.visible = false
+			button.disabled = true
+			button.texture_normal = null
+		
 	selection_window.popup_centered()
+	return true
 
 func _on_item_pressed(index: int) -> void:
 	item_selected.emit(index)

@@ -7,13 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://du8xd7rjch7ym" path="res://Scenes/Ludzik_gracza.tscn" id="2_hlwta"]
 [ext_resource type="Script" uid="uid://bpw7uvdckg7h0" path="res://Code/battle_choice_action_manager.gd" id="3_h3puh"]
 [ext_resource type="PackedScene" uid="uid://cu6em24p8e1qe" path="res://Scenes/oponent.tscn" id="3_hrj8l"]
+[ext_resource type="Resource" uid="uid://bqbkci6urpis8" path="res://Resources/items/heal_potion.tres" id="3_k83kh"]
 [ext_resource type="PackedScene" uid="uid://cckiemoefh4fw" path="res://Scenes/action_ui.tscn" id="3_lpcab"]
 [ext_resource type="Script" uid="uid://pq6xsrip8iko" path="res://Code/BattleActionManager.gd" id="3_v3boh"]
 [ext_resource type="Script" uid="uid://8uxtocbq48wh" path="res://Code/map_manager.gd" id="3_ymvx6"]
 [ext_resource type="PackedScene" uid="uid://b3701tbl7h5pl" path="res://Scenes/movement_info.tscn" id="4_movement_info"]
 [ext_resource type="Script" uid="uid://ijunqqau2foc" path="res://Code/BattleAttackManager.gd" id="6_k27g2"]
 [ext_resource type="Script" uid="uid://dw5kgr7xwrjr5" path="res://Code/MovementManager.gd" id="8_ecetj"]
+[ext_resource type="Script" uid="uid://b8ti7f288oru2" path="res://Code/BattleItemsManager.gd" id="8_oxmns"]
 [ext_resource type="Script" uid="uid://cykkm7y3kas2w" path="res://Code/selection_manager.gd" id="9_oilx1"]
+[ext_resource type="Script" uid="uid://cly6eied0n7qx" path="res://Code/BattleItemPreparer.gd" id="10_shrlo"]
 [ext_resource type="PackedScene" uid="uid://s3p6arnmia2p" path="res://Scenes/items_select_window.tscn" id="15_6aqh6"]
 
 [node name="Node2D" type="Node2D" unique_id=1464242212]
@@ -26,46 +29,60 @@ offset_bottom = 103.729996
 theme_override_font_sizes/normal_font_size = 8
 text = "Siemano"
 
-[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "attackManager", "selectionModule", "ActionManager", "PlayerContainer", "EnemyContainer")]
+[node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
+
+[node name="BattleTurnManager" type="Node" parent="." unique_id=2122553765 node_paths=PackedStringArray("BattleStateMachine", "movementManager", "mapManager", "attackManager", "selectionModule", "ItemManager", "ItemPreparer", "PlayerContainer", "EnemyContainer")]
 script = ExtResource("1_fnnck")
 BattleStateMachine = NodePath("../BattleStateMachine")
 movementManager = NodePath("../MovementManager")
 mapManager = NodePath("../MapManager")
-attackManager = NodePath("../AttackManager")
-selectionModule = NodePath("../SelectionManager")
-ActionManager = NodePath("../BattleActionManager")
+attackManager = NodePath("AttackManager")
+selectionModule = NodePath("SelectionManager")
+ItemManager = NodePath("ItemManager")
+ItemPreparer = NodePath("ItemPreparer")
+Minion_Items = {
+"Minion1": [ExtResource("3_k83kh")]
+}
 PlayerContainer = NodePath("../PlayerMinions")
 EnemyContainer = NodePath("../EnemyMinions")
 metadata/_custom_type_script = "uid://cnnuxwpher8c1"
 
-[node name="BattleChoiceActionManager" type="Node" parent="." unique_id=546555146]
+[node name="BattleChoiceActionManager" type="Node" parent="BattleTurnManager" unique_id=546555146]
 script = ExtResource("3_h3puh")
 
-[node name="SelectionManager" type="Node" parent="." unique_id=1182601867 node_paths=PackedStringArray("selection_box")]
+[node name="SelectionManager" type="Node" parent="BattleTurnManager" unique_id=1182601867 node_paths=PackedStringArray("selection_box")]
 script = ExtResource("9_oilx1")
 selection_box = NodePath("Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="SelectionManager" unique_id=478897855]
+[node name="Sprite2D" type="Sprite2D" parent="BattleTurnManager/SelectionManager" unique_id=478897855]
 texture = ExtResource("2_4i7ud")
 centered = false
 offset = Vector2(-2, -2)
 
-[node name="BattleActionManager" type="Node" parent="." unique_id=1656010735]
+[node name="BattleActionManager" type="Node" parent="BattleTurnManager" unique_id=1656010735]
 script = ExtResource("3_v3boh")
+
+[node name="AttackManager" type="Node" parent="BattleTurnManager" unique_id=1547271146]
+script = ExtResource("6_k27g2")
+
+[node name="ItemManager" type="Node" parent="BattleTurnManager" unique_id=1451210897 node_paths=PackedStringArray("itemWindow")]
+script = ExtResource("8_oxmns")
+itemWindow = NodePath("ItemsSelectWindow")
+
+[node name="ItemsSelectWindow" parent="BattleTurnManager/ItemManager" unique_id=2016971652 groups=["ItemsWindow"] instance=ExtResource("15_6aqh6")]
+
+[node name="ItemPreparer" type="Node" parent="BattleTurnManager" unique_id=942937576 node_paths=PackedStringArray("turnMan")]
+script = ExtResource("10_shrlo")
+turnMan = NodePath("..")
 
 [node name="MapManager" type="Node" parent="." unique_id=321512181 node_paths=PackedStringArray("main_tilemap", "tilemap_ui")]
 script = ExtResource("3_ymvx6")
 main_tilemap = NodePath("../TileMapLayer")
 tilemap_ui = NodePath("../UI")
 
-[node name="AttackManager" type="Node" parent="." unique_id=1547271146]
-script = ExtResource("6_k27g2")
-
 [node name="MovementManager" type="Node" parent="." unique_id=949361381 node_paths=PackedStringArray("mapManager") groups=["MovementManager"]]
 script = ExtResource("8_ecetj")
 mapManager = NodePath("../MapManager")
-
-[node name="BattleStateMachine" parent="." unique_id=1425635360 instance=ExtResource("1_4vemg")]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAD//wAAAAABAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD+//7/AAABAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAABAP3/AAABAAQAAAACAP3/AAABAAQAAAADAP3/AAABAAQAAAAEAP3/AAABAAQAAAAEAP7/AAABAAQAAAAEAP//AAABAAQAAAAEAAAAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAABAAQAAAADAAIAAAABAAQAAAACAAMAAAABAAQAAAABAAMAAAABAAQAAAAAAAMAAAABAAQAAAAAAAIAAAABAAUAAAD//wIAAAABAAQAAAD+/wIAAAABAAQAAAD+/wEAAAABAAQAAAD/////AAABAAQAAAD+//3/AAABAAQAAAD+/wMAAAABAAQAAAD//wMAAAABAAQAAAADAAMAAAABAAQAAAAEAAMAAAABAAQAAAADAAEAAAABAAQAAAADAAAAAAABAAQAAAADAP//AAABAAQAAAACAP7/AAABAAQAAAABAP7/AAABAAQAAAAAAP7/AAABAAQAAAD//wEAAAABAAQAAAAAAAEAAAABAAQAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAACAAIAAAACAAQAAAACAAEAAAACAAQAAAACAAAAAAACAAQAAAABAAAAAAABAAQAAAABAP//AAACAAQAAAAAAP//AAACAAQAAAACAP//AAACAAQAAAADAP7/AAABAAQAAAD+//z/AAACAAQAAAD9//z/AAACAAQAAAD9//3/AAACAAQAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAACAAQAAAD+/wQAAAACAAQAAAD//wQAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAACAAQAAAACAAQAAAACAAQAAAADAAQAAAACAAQAAAAEAAQAAAACAAQAAAAFAAQAAAACAAQAAAAFAAMAAAACAAQAAAAFAAIAAAACAAQAAAAFAAEAAAACAAQAAAAFAAAAAAACAAQAAAAFAP//AAACAAQAAAAFAP7/AAACAAQAAAAFAP3/AAACAAQAAAD///z/AAACAAQAAAAAAPz/AAACAAQAAAABAPz/AAACAAQAAAACAPz/AAACAAQAAAADAPz/AAACAAQAAAAEAPz/AAACAAQAAAAFAPz/AAACAAQAAAA=")
@@ -101,9 +118,11 @@ zoom = Vector2(3.015, 3.015)
 [node name="PlayerMinions" type="Node" parent="." unique_id=919215767]
 
 [node name="Lg1" parent="PlayerMinions" unique_id=593328418 groups=["Player_char"] instance=ExtResource("2_hlwta")]
+id = "Minion1"
 
 [node name="Lg2" parent="PlayerMinions" unique_id=2103453396 groups=["Player_char"] instance=ExtResource("2_hlwta")]
 position = Vector2(-16, -32)
+id = "Minion2"
 movement = 5
 
 [node name="Lg3" parent="PlayerMinions" unique_id=1034769860 groups=["Player_char"] instance=ExtResource("2_hlwta")]
@@ -121,5 +140,3 @@ position = Vector2(64, 48)
 position = Vector2(-32, 16)
 
 [node name="NeutralMinions" type="Node" parent="." unique_id=174572424]
-
-[node name="ItemsSelectWindow" parent="." unique_id=2016971652 groups=["ItemsWindow"] instance=ExtResource("15_6aqh6")]

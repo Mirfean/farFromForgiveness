@@ -5,10 +5,12 @@
 
 [resource]
 script = ExtResource("1_f5wns")
+tags = Array[int]([0])
+max_usages = 3
 sprite = ExtResource("2_85366")
 id = "001"
 name_ = "Heal Potion"
 description = "Malinowy"
-tag = Array[int]([0])
-max_usages = 3
+power = 3
+max_range = 1
 metadata/_custom_type_script = "uid://enxurtse0k1m"

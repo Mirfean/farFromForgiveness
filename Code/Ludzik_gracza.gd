@@ -8,6 +8,8 @@ const inputs = {
 	"move_up": Vector2.UP
 }
 
+@export var id: String
+
 @export var used_this_turn: bool = false
 
 @onready var debug_text: RichTextLabel = $DebugText

@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_1tv0o")
-damage = 2
-range = 2
 penetration = 2
+power = 2
+max_range = 2
+min_range = 1

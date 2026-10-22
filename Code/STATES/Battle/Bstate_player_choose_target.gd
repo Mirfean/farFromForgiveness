@@ -12,7 +12,6 @@ var current_selected: Vector2i
 
 func Enter():
 	print_debug("player choose target")
-	show_targets.emit()
 	if not valid_target_cells.is_empty():
 		select_module.start_selection()
 		move_selection_to_cell(current_selected)
@@ -33,6 +32,7 @@ func InputState(event: InputEvent)-> void:
 			perform_attack()
 		return
 	if event.is_action_pressed("back"):
+		#TODO Cofka do odpowiedniego w zależności od wybranej akcji
 		Transitioned.emit(self, "Bstate_player_choose_attack")
 	if event.is_action_pressed("confirm"):
 		if valid_target_cells.has(current_selected):

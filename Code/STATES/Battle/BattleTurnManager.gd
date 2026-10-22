@@ -15,17 +15,23 @@ enum battle_phase {
 @export var mapManager: MapManager
 @export var attackManager: BattleAttackManager
 @export var selectionModule: selection_module
-@export var ActionManager: BattleActionManager
+
+@export_category("Items")
+@export var ItemManager: BattleItemsManager
+@export var ItemPreparer: BattleItemPreparer
+@export var Minion_Items: Dictionary = {}
 
 var current_phase: battle_phase = battle_phase.player
 
 var current_minion: Ludzik_gracza = null #TODO Dodać później wspólnego parenta dla wszystkich ludków
-
+var CURRENT_ACTION: String
+var current_prop: PropObject
 var current_target_position: Vector2i
 var current_target: Ludzik_gracza #TODO Ta, tutaj też zmienic
 
 var selection_index: int = 0
 
+@export_category("Minions")
 @export var PlayerContainer: Node
 var player_minions: Array = []
 
@@ -40,6 +46,7 @@ var movement_path: Array = []
 func _ready() -> void:
 	connect_state_signals()
 	begin_player_phase()
+	ItemPreparer.prepare_items(Minion_Items, player_minions)
 
 func connect_state_signals() -> void:
 	if not BattleStateMachine:
@@ -47,6 +54,8 @@ func connect_state_signals() -> void:
 	
 	if movementManager:
 		movementManager.MoveCurrentMinion.connect(move_minion)
+		
+	ItemManager.itemSelected.connect(item_selected)
 	
 	var choose_minion_state = BattleStateMachine.get_state("Bstate_player_choose_minion")
 	if choose_minion_state and choose_minion_state.has_signal("minion_selected"):
@@ -68,8 +77,8 @@ func connect_state_signals() -> void:
 	if choose_target_state: 
 		if choose_target_state.has_signal("target_selected"):
 			choose_target_state.target_selected.connect(on_target_selected)
-		if choose_target_state.has_signal("show_targets"):
-			choose_target_state.show_targets.connect(show_targetable)
+		#if choose_target_state.has_signal("show_targets"):
+			#choose_target_state.show_targets.connect(show_targetable)
 				
 	var attack_state = BattleStateMachine.get_state("Bstate_attack")
 	if attack_state and attack_state.has_signal("attack_performed"):
@@ -188,7 +197,11 @@ func on_target_selected(target: Vector2i) -> void:
 		
 func minion_attack() -> void:
 	current_minion.used_this_turn = true
-	attackManager.perform_attack(current_minion, "", current_target)
+	match CURRENT_ACTION:
+		"ATTACK":
+			attackManager.perform_attack(current_minion, "", current_target)
+		"ITEM":
+			attackManager.perform_item(current_minion, current_prop, current_target)
 
 func finish_action() -> void:
 	if selectable_minions.has(current_minion):
@@ -203,9 +216,14 @@ func on_action_selected(action: String) -> void:
 		"MOVE":
 			BattleStateMachine.get_state("Bstate_movement").Enter()
 		"ATTACK":
+			CURRENT_ACTION = "ATTACK"
 			print_debug("ATTACK")
+			#TODO Przerzucić to później do wyboru broni(jeśli więcej niż jedna)
+			current_prop = current_minion.stats.weapon_stats
+			show_targetable()
 		"ITEM":
-			ActionManager
+			CURRENT_ACTION = "ITEM"
+			show_items()
 		"END_TURN":
 			print("Koniec rundy")
 		#BattleStateMachine.get_state("Bstate_player_end").Enter()
@@ -241,9 +259,9 @@ func update_grid_pos_for_selection():
 
 func get_targetable() -> Array:
 	# TODO Wziąć od gracza zasięg broni
-	var weapon_range = current_minion.stats.weapon_stats.range
-	var weapon_min_range = current_minion.stats.weapon_stats.min_range
-	var reachable_cells = calculate_reachable_cells(current_minion.grid_position, weapon_range, weapon_min_range)
+	var max_range = current_prop.max_range
+	var min_range = current_prop.min_range
+	var reachable_cells = calculate_reachable_cells(current_minion.grid_position, max_range, min_range)
 	print(reachable_cells)
 	mapManager.draw_targeting_range(reachable_cells)
 	return reachable_cells
@@ -252,8 +270,6 @@ func calculate_reachable_cells(minion_pos: Vector2i, max_range: int, min_range: 
 	var result = {}
 	for x in range(-max_range, max_range+1):
 		for y in range(-max_range, max_range+1):
-			if x==0 and y==0:
-				continue
 			var distance = abs(x) + abs(y)
 			if distance >= min_range and distance <= max_range:
 				result[Vector2i(minion_pos.x+x,minion_pos.y+y)] = true
@@ -267,3 +283,12 @@ func check_minion_on_position(position: Vector2i) -> Ludzik_gracza:
 		if e_minion.grid_position == position:
 			return e_minion
 	return null
+
+func show_items():
+	print("Pokaz mi swoje towary")
+	ItemManager.show_items(current_minion.equipment)
+
+func item_selected(id: int):
+	current_prop = current_minion.equipment[id]
+	show_targetable()
+	

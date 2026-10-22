@@ -12,10 +12,11 @@ func _ready() -> void:
 
 func Enter():
 	print("There should be a menu to choose item :>")
-	Transitioned.emit(self, "Bstate_player_choose_target")
+	
 
 func item_selected(id: int):
 	item_chosen.emit(id)
+	Transitioned.emit(self, "Bstate_player_choose_target")
 
 func update_itemWindow(items: Array[BattleItem]):
 	itemWindow.UpdateItems(items)

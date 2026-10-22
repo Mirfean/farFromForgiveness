@@ -27,13 +27,13 @@ func action_button_clicked(button: String):
 	print_debug("Action chosen " + button)
 	match button:
 		"ATTACK":
-			action_attack.emit()
+			action_selected.emit("ATTACK")
 			Transitioned.emit(self, "Bstate_player_choose_target")
 		"ITEM":
-			action_item.emit()
+			action_selected.emit("ITEM")
 			Transitioned.emit(self, "Bstate_player_choose_item") 
 		"DEFEND":
-			action_defend.emit()
+			action_selected.emit("DEFEND")
 			Transitioned.emit(self, "Bstate_player_choose_defend")
 		"INTERACT":
 			pass

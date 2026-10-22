@@ -1,4 +1,4 @@
-extends Node
+extends PropObject
 class_name BattleItem
 
 enum BattleItemTag
@@ -12,11 +12,7 @@ enum BattleItemTag
 	Magic
 }
 
-var sprite: CompressedTexture2D
-var id: String
-var name_: String
-var description: String
-var tag: Array[BattleItemTag]
+var tags: Array[BattleItemTag]
 var max_usages: int
 var remaining_usages: int
 
@@ -25,8 +21,11 @@ func set_item(res: r_BattleItem):
 	id = res.id
 	name_ = res.name_
 	description = res.description
-	tag = res.tag
+	power = res.power
+	tags = res.tags
 	max_usages = res.max_usages
+	min_range = res.min_range
+	max_range = res.max_range
 	
 	if res.remaining_usages != 0:
 		remaining_usages = res.remaining_usages

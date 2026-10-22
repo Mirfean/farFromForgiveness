@@ -4,5 +4,7 @@
 
 [resource]
 script = ExtResource("1_rlx1e")
-damage = 1
-range = 1
+name_ = "Punch"
+power = 1
+max_range = 1
+min_range = 1
