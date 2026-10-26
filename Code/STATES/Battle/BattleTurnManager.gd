@@ -23,11 +23,11 @@ enum battle_phase {
 
 var current_phase: battle_phase = battle_phase.player
 
-var current_minion: Ludzik_gracza = null #TODO Dodać później wspólnego parenta dla wszystkich ludków
+var current_minion: Ludzik
 var CURRENT_ACTION: String
 var current_prop: PropObject
 var current_target_position: Vector2i
-var current_target: Ludzik_gracza #TODO Ta, tutaj też zmienic
+var current_target: Ludzik
 
 var selection_index: int = 0
 
@@ -101,14 +101,12 @@ func refresh_player_minions() -> void:
 	print_debug("Refresh player's minions")
 	player_minions = PlayerContainer.get_children()
 	for minion in player_minions:
-		if minion is Ludzik_gracza:
+		if minion is Ludzik:
 			selectable_minions.append(minion)
 			minion.used_this_turn = false
 
 func refresh_enemy_minions() -> void:
 	print_debug("Refresh enemies")
-	
-	
 	#TODO the rest xD
 
 func cleaner():
@@ -186,14 +184,19 @@ func move_minion(move: Vector2i):
 	current_minion.move(move)
 	
 func stop_move_minion():
-	print("stop moving minion")
+	var minions_on_pos = check_minion_on_position(current_minion.grid_position)
+	if minions_on_pos.size() > 1:
+		print_debug("No, you can't stay here, move along!")
+	else:
+		#TODO Poprawić to później żeby nie było takie ble
+		BattleStateMachine.get_state("Bstate_movement").confirmDestination()
 
 func on_target_selected(target: Vector2i) -> void:
 	#Przekazanie pola z grida bo można by atakować też puste pola by zastawiać pułapki itd
 	current_target_position = target
 	var target_object = check_minion_on_position(current_target_position)
-	if target_object:
-		current_target = target_object
+	if target_object.size() > 0:
+		current_target = target_object[0]
 		
 func minion_attack() -> void:
 	current_minion.used_this_turn = true
@@ -201,7 +204,10 @@ func minion_attack() -> void:
 		"ATTACK":
 			attackManager.perform_attack(current_minion, "", current_target)
 		"ITEM":
-			attackManager.perform_item(current_minion, current_prop, current_target)
+			if attackManager.perform_item(current_minion, current_prop, current_target):
+				print("Success item use")
+			else:
+				print("Incorrent item use")
 
 func finish_action() -> void:
 	if selectable_minions.has(current_minion):
@@ -246,7 +252,7 @@ func on_battle_ended() -> void:
 func reset_turn_flags() -> void:
 	print_debug("New turn")
 	for minion in player_minions:
-		if minion is Ludzik_gracza:
+		if minion is Ludzik:
 			minion.used_this_turn = false
 	begin_player_phase()
 	
@@ -275,14 +281,17 @@ func calculate_reachable_cells(minion_pos: Vector2i, max_range: int, min_range: 
 				result[Vector2i(minion_pos.x+x,minion_pos.y+y)] = true
 	return result.keys() as Array[Vector2i]
 
-func check_minion_on_position(position: Vector2i) -> Ludzik_gracza:
+func check_minion_on_position(position: Vector2i) -> Array[Ludzik]:
+	var minions_on_pos = [] as Array[Ludzik]
 	for p_minion in player_minions:
 		if p_minion.grid_position == position:
-			return p_minion
+			minions_on_pos.append(p_minion)
 	for e_minion in enemy_minions:
 		if e_minion.grid_position == position:
-			return e_minion
-	return null
+			minions_on_pos.append(e_minion)
+	return minions_on_pos
+
+#region Items
 
 func show_items():
 	print("Pokaz mi swoje towary")
@@ -291,4 +300,5 @@ func show_items():
 func item_selected(id: int):
 	current_prop = current_minion.equipment[id]
 	show_targetable()
-	
+
+#endregion

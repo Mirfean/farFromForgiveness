@@ -21,25 +21,32 @@
 			"uuid": "c1de8526-5574-4bf7-bad7-6daadc813d22",
 			"title": "Todo",
 			"tasks": [
-				"9de21d8f-592f-412f-a876-6e02da007733",
-				"676dc000-d0cf-4b8d-b46d-3a8b8aa0096d",
-				"664b5589-01ec-4d57-9e27-b28b853b73b3"
+				"a7b8653f-f502-4c50-af61-fdcced94d15b",
+				"5e357673-5341-4d38-9aac-cfa860ef3e08",
+				"2bf505fa-95d5-405b-95f9-db174a956514",
+				"26a9fba0-5166-4a9a-bd0c-c228e921ca7f",
+				"9f2d23a4-57e5-46c2-adb1-37b14b998e51",
+				"e5d9306b-e6e7-4f4b-afb4-bc52cff62f92",
+				"2e75aab5-39ff-4f86-adc4-4f3924865040",
+				"07b0e460-6c9c-44a5-98b1-b933872f0b1f",
+				"d189dda8-e797-4299-9dbf-29e69602904d"
 			]
 		},
 		{
 			"uuid": "f1da6c74-909d-4143-ada3-563c45355aaa",
 			"title": "Doing",
-			"tasks": [
-				"ad0aab0d-df3a-485e-9ce6-d3e5cee2be04",
-				"07b0e460-6c9c-44a5-98b1-b933872f0b1f",
-				"3a507f46-b268-452f-9744-5b9423d3b3fc"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "9a693c58-9147-4f8e-bc5e-cfc1909275ba",
 			"title": "Done",
 			"tasks": [
-				"359d9b27-c821-41ea-8f26-dfe10506b128"
+				"359d9b27-c821-41ea-8f26-dfe10506b128",
+				"ad0aab0d-df3a-485e-9ce6-d3e5cee2be04",
+				"676dc000-d0cf-4b8d-b46d-3a8b8aa0096d",
+				"3a507f46-b268-452f-9744-5b9423d3b3fc",
+				"664b5589-01ec-4d57-9e27-b28b853b73b3",
+				"9de21d8f-592f-412f-a876-6e02da007733"
 			]
 		}
 	],
@@ -76,19 +83,75 @@
 			"uuid": "07b0e460-6c9c-44a5-98b1-b933872f0b1f",
 			"title": "Send selected to ActionManager?",
 			"description": "",
-			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"category": "8bce55f6-3526-4b0d-ab22-030f2ec971eb",
 			"steps": []
 		},
 		{
 			"uuid": "664b5589-01ec-4d57-9e27-b28b853b73b3",
 			"title": "Przechodzenie przez kolegów",
 			"description": "",
-			"category": "8bce55f6-3526-4b0d-ab22-030f2ec971eb",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
 			"steps": []
 		},
 		{
 			"uuid": "3a507f46-b268-452f-9744-5b9423d3b3fc",
 			"title": "XXXManager gets used item id and?",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "5e357673-5341-4d38-9aac-cfa860ef3e08",
+			"title": "Tura Przeciwnika",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "a7b8653f-f502-4c50-af61-fdcced94d15b",
+			"title": "Jednostka przeciwnika z tego samego parenta co Ludzik_gracza",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "9f2d23a4-57e5-46c2-adb1-37b14b998e51",
+			"title": "Zablokować niedostępne pola przy przedmiotach",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "2bf505fa-95d5-405b-95f9-db174a956514",
+			"title": "Pathtracing przeciwnika",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "26a9fba0-5166-4a9a-bd0c-c228e921ca7f",
+			"title": "Decyzja przeciwnika",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "2e75aab5-39ff-4f86-adc4-4f3924865040",
+			"title": "Obszarowe ataki",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "d189dda8-e797-4299-9dbf-29e69602904d",
+			"title": "Wybór broni",
+			"description": "",
+			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
+			"steps": []
+		},
+		{
+			"uuid": "e5d9306b-e6e7-4f4b-afb4-bc52cff62f92",
+			"title": "Preview ataku",
 			"description": "",
 			"category": "6847fde9-dc2a-4b07-a6bc-dee672cb3157",
 			"steps": []

@@ -1,0 +1,2 @@
+extends Ludzik
+class_name Ludzik_oponent

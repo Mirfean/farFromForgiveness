@@ -29,7 +29,6 @@ func InputState(event: InputEvent):
 		Transitioned.emit(self, "Bstate_player_choose_minion")
 		revertMovement.emit()
 	elif event.is_action_pressed("confirm"):
-		Transitioned.emit(self, "Bstate_action_selection")
 		confirmMovement.emit()
 		
 func Exit():
@@ -37,3 +36,6 @@ func Exit():
 
 func checkMovement(move: Vector2i):
 	movementManager.checkMovement(move)
+
+func confirmDestination():
+	Transitioned.emit(self, "Bstate_action_selection")

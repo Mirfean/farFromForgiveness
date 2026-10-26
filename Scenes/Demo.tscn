@@ -9,13 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://cu6em24p8e1qe" path="res://Scenes/oponent.tscn" id="3_hrj8l"]
 [ext_resource type="Resource" uid="uid://bqbkci6urpis8" path="res://Resources/items/heal_potion.tres" id="3_k83kh"]
 [ext_resource type="PackedScene" uid="uid://cckiemoefh4fw" path="res://Scenes/action_ui.tscn" id="3_lpcab"]
-[ext_resource type="Script" uid="uid://pq6xsrip8iko" path="res://Code/BattleActionManager.gd" id="3_v3boh"]
-[ext_resource type="Script" uid="uid://8uxtocbq48wh" path="res://Code/map_manager.gd" id="3_ymvx6"]
+[ext_resource type="Script" uid="uid://pq6xsrip8iko" path="res://Code/BattleManagers/BattleActionManager.gd" id="3_v3boh"]
+[ext_resource type="Script" uid="uid://8uxtocbq48wh" path="res://Code/BattleManagers/map_manager.gd" id="3_ymvx6"]
 [ext_resource type="PackedScene" uid="uid://b3701tbl7h5pl" path="res://Scenes/movement_info.tscn" id="4_movement_info"]
-[ext_resource type="Script" uid="uid://ijunqqau2foc" path="res://Code/BattleAttackManager.gd" id="6_k27g2"]
-[ext_resource type="Script" uid="uid://dw5kgr7xwrjr5" path="res://Code/MovementManager.gd" id="8_ecetj"]
-[ext_resource type="Script" uid="uid://b8ti7f288oru2" path="res://Code/BattleItemsManager.gd" id="8_oxmns"]
-[ext_resource type="Script" uid="uid://cykkm7y3kas2w" path="res://Code/selection_manager.gd" id="9_oilx1"]
+[ext_resource type="Script" uid="uid://ijunqqau2foc" path="res://Code/BattleManagers/BattleAttackManager.gd" id="6_k27g2"]
+[ext_resource type="Script" uid="uid://dw5kgr7xwrjr5" path="res://Code/BattleManagers/MovementManager.gd" id="8_ecetj"]
+[ext_resource type="Script" uid="uid://b8ti7f288oru2" path="res://Code/BattleManagers/BattleItemsManager.gd" id="8_oxmns"]
+[ext_resource type="Script" uid="uid://cykkm7y3kas2w" path="res://Code/BattleManagers/selection_manager.gd" id="9_oilx1"]
 [ext_resource type="Script" uid="uid://cly6eied0n7qx" path="res://Code/BattleItemPreparer.gd" id="10_shrlo"]
 [ext_resource type="PackedScene" uid="uid://s3p6arnmia2p" path="res://Scenes/items_select_window.tscn" id="15_6aqh6"]
 
@@ -85,6 +85,7 @@ script = ExtResource("8_ecetj")
 mapManager = NodePath("../MapManager")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
+texture_filter = 1
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAD//wAAAAABAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD+//7/AAABAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAABAP3/AAABAAQAAAACAP3/AAABAAQAAAADAP3/AAABAAQAAAAEAP3/AAABAAQAAAAEAP7/AAABAAQAAAAEAP//AAABAAQAAAAEAAAAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAABAAQAAAADAAIAAAABAAQAAAACAAMAAAABAAQAAAABAAMAAAABAAQAAAAAAAMAAAABAAQAAAAAAAIAAAABAAUAAAD//wIAAAABAAQAAAD+/wIAAAABAAQAAAD+/wEAAAABAAQAAAD/////AAABAAQAAAD+//3/AAABAAQAAAD+/wMAAAABAAQAAAD//wMAAAABAAQAAAADAAMAAAABAAQAAAAEAAMAAAABAAQAAAADAAEAAAABAAQAAAADAAAAAAABAAQAAAADAP//AAABAAQAAAACAP7/AAABAAQAAAABAP7/AAABAAQAAAAAAP7/AAABAAQAAAD//wEAAAABAAQAAAAAAAEAAAABAAQAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAACAAIAAAACAAQAAAACAAEAAAACAAQAAAACAAAAAAACAAQAAAABAAAAAAABAAQAAAABAP//AAACAAQAAAAAAP//AAACAAQAAAACAP//AAACAAQAAAADAP7/AAABAAQAAAD+//z/AAACAAQAAAD9//z/AAACAAQAAAD9//3/AAACAAQAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAACAAQAAAD+/wQAAAACAAQAAAD//wQAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAACAAQAAAACAAQAAAACAAQAAAADAAQAAAACAAQAAAAEAAQAAAACAAQAAAAFAAQAAAACAAQAAAAFAAMAAAACAAQAAAAFAAIAAAACAAQAAAAFAAEAAAACAAQAAAAFAAAAAAACAAQAAAAFAP//AAACAAQAAAAFAP7/AAACAAQAAAAFAP3/AAACAAQAAAD///z/AAACAAQAAAAAAPz/AAACAAQAAAABAPz/AAACAAQAAAACAPz/AAACAAQAAAADAPz/AAACAAQAAAAEAPz/AAACAAQAAAAFAPz/AAACAAQAAAA=")
 tile_set = ExtResource("1_0jree")
 

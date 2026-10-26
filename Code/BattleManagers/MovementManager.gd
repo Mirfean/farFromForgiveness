@@ -11,7 +11,7 @@ signal MoveCurrentMinion(Vector2i)
 
 @export var mapManager: MapManager
 
-var current_minion: Ludzik_gracza
+var current_minion: Ludzik
 var starting_cell: Vector2i
 var movement_path: Array
 var current_minion_remaining_movement: int
@@ -58,7 +58,7 @@ func highlight_movement_range(start_cell: Vector2i, movement_points: int):
 	for cell in reachable_cells.keys():
 		mapManager.tilemap_ui.set_cell(cell, SOURCE_ID, movement_highlight_tile)
 		
-func setup_new_minion(minion: Ludzik_gracza):
+func setup_new_minion(minion: Ludzik):
 	if current_minion == minion:
 		print_debug("Ten sam gość?!")
 		return

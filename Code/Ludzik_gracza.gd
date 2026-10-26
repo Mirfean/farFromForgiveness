@@ -1,46 +1,11 @@
-extends CharacterBody2D
+extends Ludzik
 class_name Ludzik_gracza
-
-const inputs = {
-	"move_right": Vector2.RIGHT,
-	"move_left": Vector2.LEFT,
-	"move_down": Vector2.DOWN,
-	"move_up": Vector2.UP
-}
-
-@export var id: String
-
-@export var used_this_turn: bool = false
-
-@onready var debug_text: RichTextLabel = $DebugText
-
-@export var raycast: RayCast2D
-@export var stats: character_stats
-@export var r_stats: r_character_stats
-
-@export var equipment: Array[BattleItem]
-
-@export var movement: int
-
-@export var grid_position: Vector2i
 
 func _ready() -> void:
 	stats.load_resource(r_stats)
 	prepare_eq()
 	debug_text.text = "%s/%s" % [stats.hp, stats.max_hp]
 	#TODO DODAĆ STARTOWĄ WARTOŚĆ
-
-func prepare_eq():
-	for r_item in r_stats.items:
-		var item := BattleItem.new()
-		item.set_item(r_item)
-		equipment.append(item)
-
-#func _unhandled_input(event: InputEvent) -> void:
-#	if active:
-#		for action in inputs.keys():
-#			if event.is_action_pressed(action):
-#				move(action)
 			
 func move(vector: Vector2i):
 	var destination = Vector2(vector.x, vector.y) * GLOBAL.grid_size
@@ -52,28 +17,4 @@ func move(vector: Vector2i):
 	else:
 		var collider = raycast.get_collider()
 		print(collider.name)
-
-func setup_grid_position(pos: Vector2i):
-	grid_position.x = pos.x
-	grid_position.y = pos.y
-
-func update_grid_position(move: Vector2i):
-	grid_position.x += move.x
-	grid_position.y += move.y
-
-func teleport(pos: Vector2i):
-	setup_grid_position(pos)
-	global_position = Vector2(pos) * GLOBAL.grid_size
-
-func modify_hp(value: int):
-	#TODO dodać tu później armor
-	stats.hp = clamp(stats.hp + value, 0, stats.max_hp)
-	debug_text.text = "%s/%s" % [stats.hp, stats.max_hp]
-	#TODO jakiś tutaj overheal można dać jeśli postać będzie miała taki perk/klasę
-	if stats.hp == 0:
-		print_debug("hehe, dead")
-		
-func use_item(id: int):
-	if not equipment[id].use():
-		equipment.remove_at(id)
 	

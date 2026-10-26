@@ -88,6 +88,7 @@ centered = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=61900238]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_5g057")
+disabled = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=572144603]
 self_modulate = Color(0.7933751, 0.09721158, 0.5017716, 1)
