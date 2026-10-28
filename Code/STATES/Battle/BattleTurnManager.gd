@@ -77,8 +77,8 @@ func connect_state_signals() -> void:
 	if choose_target_state: 
 		if choose_target_state.has_signal("target_selected"):
 			choose_target_state.target_selected.connect(on_target_selected)
-		#if choose_target_state.has_signal("show_targets"):
-			#choose_target_state.show_targets.connect(show_targetable)
+		if choose_target_state.has_signal("moved_to"):
+			choose_target_state.moved_to.connect(show_affected_cells)
 				
 	var attack_state = BattleStateMachine.get_state("Bstate_attack")
 	if attack_state and attack_state.has_signal("attack_performed"):
@@ -107,7 +107,11 @@ func refresh_player_minions() -> void:
 
 func refresh_enemy_minions() -> void:
 	print_debug("Refresh enemies")
-	#TODO the rest xD
+	enemy_minions = EnemyContainer.get_children()
+	for minion in enemy_minions:
+		if minion is Ludzik:
+			selectable_minions.append(minion)
+			minion.used_this_turn = false
 
 func cleaner():
 	current_minion = null
@@ -119,8 +123,11 @@ func begin_player_phase() -> void:
 	cleaner()
 	current_phase = battle_phase.player
 	refresh_player_minions()
+	#TODO Zastanowić się czy to ma tutaj zostać, na razie dla debugu git
+	refresh_enemy_minions()
 	minions_this_turn = mapManager.set_grid_positions(player_minions)
-	update_grid_pos_for_selection()
+	update_grid_pos_for_selection(minions_this_turn)
+	#update_grid_pos_for_all()
 	#used_minions_this_turn = []
 	next_player_turn()
 
@@ -256,9 +263,23 @@ func reset_turn_flags() -> void:
 			minion.used_this_turn = false
 	begin_player_phase()
 	
-func update_grid_pos_for_selection():
-	for key in minions_this_turn:
-		var indexik = selectable_minions.find(minions_this_turn[key])
+#func update_grid_pos_for_all():
+	#var p_minions = mapManager.set_grid_positions(player_minions)
+	#var e_minions = mapManager.set_grid_positions(enemy_minions)
+	#for key in p_minions:
+		#var index = selectable_minions.find(p_minions[key])
+		#if index >= 0:
+			#player_minions[index].grid_position.x = key.x
+			#player_minions[index].grid_position.y = key.y
+	#for key in e_minions:
+		#var index = selectable_minions.find(e_minions[key])
+		#if index >= 0:
+			#enemy_minions[index].grid_position.x = key.x
+			#enemy_minions[index].grid_position.y = key.y
+	
+func update_grid_pos_for_selection(minions: Dictionary):
+	for key in minions:
+		var indexik = selectable_minions.find(minions[key])
 		if indexik >= 0:
 			selectable_minions[indexik].grid_position.x = key.x
 			selectable_minions[indexik].grid_position.y = key.y
@@ -269,7 +290,7 @@ func get_targetable() -> Array:
 	var min_range = current_prop.min_range
 	var reachable_cells = calculate_reachable_cells(current_minion.grid_position, max_range, min_range)
 	print(reachable_cells)
-	mapManager.draw_targeting_range(reachable_cells)
+	mapManager.draw_range(reachable_cells, MapManager.tilemap_type.path, MapManager.highlight_type.target)
 	return reachable_cells
 
 func calculate_reachable_cells(minion_pos: Vector2i, max_range: int, min_range: int) -> Array[Vector2i]:
@@ -290,6 +311,10 @@ func check_minion_on_position(position: Vector2i) -> Array[Ludzik]:
 		if e_minion.grid_position == position:
 			minions_on_pos.append(e_minion)
 	return minions_on_pos
+	
+func show_affected_cells(cell: Vector2i):
+	print("Showing affected")
+	mapManager.draw_range([cell], MapManager.tilemap_type.affected, MapManager.highlight_type.affected)
 
 #region Items
 

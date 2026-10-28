@@ -8,3 +8,8 @@ class_name r_BattleProp
 @export var power: int
 @export var max_range: int
 @export var min_range: int = 0
+@export var include: GLOBAL.SIDES
+
+@export_category("AREA EFFECT")
+@export var area_range: int = 0
+@export var area_type: GLOBAL.AREA_TYPE

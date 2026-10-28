@@ -8,9 +8,24 @@ const cell_size = 16
 var astargrid: AStarGrid2D
 @export var main_tilemap: TileMapLayer
 @export var tilemap_ui: TileMapLayer
+@export var tilemap_affected: TileMapLayer
+
 var map_size: Vector2i
 
-var target_highlight = Vector2i(8,9)
+enum tilemap_type{
+	main,
+	path,
+	affected
+}
+
+enum highlight_type{
+	target,
+	affected
+}
+
+var path_highlight = Vector2i(8,9)
+var target_highlight = Vector2i(9,8)
+var affected_highlight = Vector2i(8,8)
 
 func _ready() -> void:
 	astargrid = AStarGrid2D.new()
@@ -73,7 +88,29 @@ func set_grid_positions(list: Array) -> Dictionary:
 		result[calculate_grid_position(main_tilemap, minion.global_position)] = minion
 	return result
 	
-func draw_targeting_range(cells: Array):
-	tilemap_ui.clear()
+func draw_range(cells: Array, tilemap: tilemap_type = tilemap_type.path, target: highlight_type = highlight_type.target):
+	var highlight = Vector2i.ZERO
+	match target:
+		highlight_type.target:
+			highlight = target_highlight
+		highlight_type.affected:
+			highlight = affected_highlight
+	
+	match tilemap:
+		tilemap_type.main:
+			draw(cells, main_tilemap, highlight, false)
+		tilemap_type.path:
+			draw(cells, tilemap_ui, highlight)
+		tilemap_type.affected:
+			draw(cells, tilemap_affected, highlight)
+	
+#TODO Później później zmienić new_cell żeby też warstwę inną podawał jak będę miał więcej różnych tilemap :>
+func draw(cells: Array, tilemap: TileMapLayer, new_cell: Vector2i, clear: bool = true):
+	if clear:
+		tilemap.clear()
 	for cell in cells:
-		tilemap_ui.set_cell(Vector2i(cell.x,cell.y), 0, target_highlight)
+		tilemap.set_cell(Vector2i(cell.x,cell.y), 0, new_cell)
+
+func clean_all():
+	tilemap_ui.clear()
+	tilemap_affected.clear()

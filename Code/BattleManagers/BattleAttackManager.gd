@@ -11,7 +11,7 @@ func calculate_damage():
 	print_debug("calculating dmg...")
 
 #TODO Może te dane będą wysyłane przy preview?
-func perform_attack(attacker: Ludzik_gracza,chosen_attack: String, defender: Ludzik):
+func perform_attack(attacker: Ludzik, chosen_attack: String, defender: Ludzik):
 	if defender:
 		var attacker_weapon = attacker.stats.weapon_stats
 		var defender_weapon = defender.stats.weapon_stats

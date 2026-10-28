@@ -105,6 +105,7 @@ func checkMovement(move: Vector2i):
 func cleaner():
 	current_minion = null
 	current_minion_remaining_movement = 0
+	mapManager.clean_all()
 	
 	for x in movement_path:
 		clean_path_cell(x[0])

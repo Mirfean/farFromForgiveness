@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://cu6em24p8e1qe"]
 
+[ext_resource type="Script" uid="uid://bhpx5s3lk1fra" path="res://Code/Ludzik_oponent.gd" id="1_al225"]
 [ext_resource type="Texture2D" uid="uid://rb0o60qsgmtg" path="res://Sprites/Ludki.png" id="1_r5vir"]
+[ext_resource type="Resource" uid="uid://vjnqeo1x5q4u" path="res://Resources/Characters Stats/demo_player.tres" id="2_bjnrk"]
+[ext_resource type="Script" uid="uid://51rlyg3krpis" path="res://Code/character_stats.gd" id="2_h1too"]
+[ext_resource type="Script" uid="uid://cxhn8iut76n1y" path="res://Code/weapon_info.gd" id="3_bjnrk"]
+[ext_resource type="FontFile" uid="uid://c2a2akkh6f3gp" path="res://tiny4px.ttf" id="5_cploo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5vir"]
 size = Vector2(16, 16)
@@ -20,7 +25,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Oponent" type="CharacterBody2D" unique_id=191306439 groups=["Enemy_char"]]
+[node name="Oponent" type="CharacterBody2D" unique_id=191306439 node_paths=PackedStringArray("stats") groups=["Enemy_char"]]
+script = ExtResource("1_al225")
+stats = NodePath("Stats")
+r_stats = ExtResource("2_bjnrk")
+movement = 5
+
+[node name="Stats" type="Node2D" parent="." unique_id=1331684711 node_paths=PackedStringArray("weapon_stats") groups=["Player", "Player_char"]]
+script = ExtResource("2_h1too")
+weapon_stats = NodePath("WeaponINFO")
+
+[node name="WeaponINFO" type="Node" parent="Stats" unique_id=2036878071]
+script = ExtResource("3_bjnrk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2007273679]
 position = Vector2(8, 8)
@@ -30,3 +46,12 @@ shape = SubResource("RectangleShape2D_r5vir")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_hg7l8")
 centered = false
+
+[node name="DebugText" type="RichTextLabel" parent="." unique_id=1669193838]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 109.0
+offset_bottom = 1.0
+theme_override_fonts/normal_font = ExtResource("5_cploo")
+theme_override_font_sizes/normal_font_size = 16
+text = "HP :)"

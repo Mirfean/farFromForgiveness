@@ -7,10 +7,31 @@ const move_inputs = {
 	"move_up": Vector2.UP
 }
 
+enum AREA_TYPE{
+	single,
+	plus,
+	line,
+	x,
+	cone,
+	T,
+	T_longLeg,
+	square,
+	square_filled
+}
+
+enum SIDES {
+	all,
+	allies,
+	enemy,
+	neutral,
+	al_ne,
+	en_ne
+}
+
 var grid_size = 16
+
+@export_category("DEBUG")
 var DEBUG = true
-
-
 
 ### DEBUG ###
 

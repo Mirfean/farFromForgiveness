@@ -75,21 +75,29 @@ itemWindow = NodePath("ItemsSelectWindow")
 script = ExtResource("10_shrlo")
 turnMan = NodePath("..")
 
-[node name="MapManager" type="Node" parent="." unique_id=321512181 node_paths=PackedStringArray("main_tilemap", "tilemap_ui")]
+[node name="MapManager" type="Node" parent="." unique_id=321512181 node_paths=PackedStringArray("main_tilemap", "tilemap_ui", "tilemap_affected")]
 script = ExtResource("3_ymvx6")
-main_tilemap = NodePath("../TileMapLayer")
-tilemap_ui = NodePath("../UI")
+main_tilemap = NodePath("../TileMaps/TileMapLayer")
+tilemap_ui = NodePath("../TileMaps/Path")
+tilemap_affected = NodePath("../TileMaps/Affected")
 
 [node name="MovementManager" type="Node" parent="." unique_id=949361381 node_paths=PackedStringArray("mapManager") groups=["MovementManager"]]
 script = ExtResource("8_ecetj")
 mapManager = NodePath("../MapManager")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=259876502]
+[node name="TileMaps" type="Node" parent="." unique_id=66138415]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMaps" unique_id=259876502]
+z_index = -1
 texture_filter = 1
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAD//wAAAAABAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD+//7/AAABAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAABAP3/AAABAAQAAAACAP3/AAABAAQAAAADAP3/AAABAAQAAAAEAP3/AAABAAQAAAAEAP7/AAABAAQAAAAEAP//AAABAAQAAAAEAAAAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAABAAQAAAADAAIAAAABAAQAAAACAAMAAAABAAQAAAABAAMAAAABAAQAAAAAAAMAAAABAAQAAAAAAAIAAAABAAUAAAD//wIAAAABAAQAAAD+/wIAAAABAAQAAAD+/wEAAAABAAQAAAD/////AAABAAQAAAD+//3/AAABAAQAAAD+/wMAAAABAAQAAAD//wMAAAABAAQAAAADAAMAAAABAAQAAAAEAAMAAAABAAQAAAADAAEAAAABAAQAAAADAAAAAAABAAQAAAADAP//AAABAAQAAAACAP7/AAABAAQAAAABAP7/AAABAAQAAAAAAP7/AAABAAQAAAD//wEAAAABAAQAAAAAAAEAAAABAAQAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAACAAIAAAACAAQAAAACAAEAAAACAAQAAAACAAAAAAACAAQAAAABAAAAAAABAAQAAAABAP//AAACAAQAAAAAAP//AAACAAQAAAACAP//AAACAAQAAAADAP7/AAABAAQAAAD+//z/AAACAAQAAAD9//z/AAACAAQAAAD9//3/AAACAAQAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAACAAQAAAD+/wQAAAACAAQAAAD//wQAAAACAAQAAAAAAAQAAAACAAQAAAABAAQAAAACAAQAAAACAAQAAAACAAQAAAADAAQAAAACAAQAAAAEAAQAAAACAAQAAAAFAAQAAAACAAQAAAAFAAMAAAACAAQAAAAFAAIAAAACAAQAAAAFAAEAAAACAAQAAAAFAAAAAAACAAQAAAAFAP//AAACAAQAAAAFAP7/AAACAAQAAAAFAP3/AAACAAQAAAD///z/AAACAAQAAAAAAPz/AAACAAQAAAABAPz/AAACAAQAAAACAPz/AAACAAQAAAADAPz/AAACAAQAAAAEAPz/AAACAAQAAAAFAPz/AAACAAQAAAA=")
 tile_set = ExtResource("1_0jree")
 
-[node name="UI" type="TileMapLayer" parent="." unique_id=1388587942]
+[node name="Path" type="TileMapLayer" parent="TileMaps" unique_id=1388587942]
+tile_set = ExtResource("1_0jree")
+
+[node name="Affected" type="TileMapLayer" parent="TileMaps" unique_id=73371402]
+z_index = 1
 tile_set = ExtResource("1_0jree")
 
 [node name="ActionUI" parent="." unique_id=778715002 instance=ExtResource("3_lpcab")]
@@ -139,5 +147,6 @@ position = Vector2(64, 48)
 
 [node name="oponent" parent="EnemyMinions" unique_id=1535029483 instance=ExtResource("3_hrj8l")]
 position = Vector2(-32, 16)
+id = "Oponent1"
 
 [node name="NeutralMinions" type="Node" parent="." unique_id=174572424]
